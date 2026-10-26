@@ -1,7 +1,7 @@
 var express = require('express'),
-    async = require('async'),
     { Pool } = require('pg'),
     cookieParser = require('cookie-parser'),
+    path = require('path'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server);
@@ -17,41 +17,53 @@ io.on('connection', function (socket) {
   });
 });
 
+// Separate fields preserve passwords containing URI delimiters.
 var pool = new Pool({
-  connectionString: 'postgres://postgres:postgres@db/postgres'
+  host: process.env.PGHOST || 'db',
+  port: Number(process.env.PGPORT || 5432),
+  user: process.env.PGUSER || 'postgres',
+  password: process.env.PGPASSWORD || 'postgres',
+  database: process.env.PGDATABASE || 'postgres',
+  connectionTimeoutMillis: 2000,
+  query_timeout: 2000,
+  max: 3
 });
 
-async.retry(
-  {times: 1000, interval: 1000},
-  function(callback) {
-    pool.connect(function(err, client, done) {
-      if (err) {
-        console.error("Waiting for db");
-      }
-      callback(err, client);
-    });
-  },
-  function(err, client) {
-    if (err) {
-      return console.error("Giving up");
-    }
-    console.log("Connected to db");
-    getVotes(client);
-  }
-);
+app.get('/health/live', function (_req, res) { res.sendStatus(200); });
+app.get('/health/ready', function (_req, res) {
+  pool.query('SELECT 1 FROM votes LIMIT 1').then(function () { res.sendStatus(200); })
+    .catch(function () { res.sendStatus(503); });
+});
 
-function getVotes(client) {
-  client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function(err, result) {
-    if (err) {
-      console.error("Error performing query: " + err);
-    } else {
-      var votes = collectVotesFromResult(result);
-      io.sockets.emit("scores", JSON.stringify(votes));
-    }
+// Use short pool queries so a database restart cannot strand a checked-out client.
+var stopping = false;
+var voteTimer;
+pool.on('error', function (error) {
+  console.error('Database pool error:', error.code || 'unknown');
+});
+function getVotes() {
+  pool.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote')
+    .then(function (result) {
+      io.sockets.emit('scores', JSON.stringify(collectVotesFromResult(result)));
+    })
+    .catch(function (error) { console.error('Waiting for votes database:', error.code || 'unknown'); })
+    .finally(function () { if (!stopping) voteTimer = setTimeout(getVotes, 1000); });
+}
+getVotes();
 
-    setTimeout(function() {getVotes(client) }, 1000);
+function shutdown() {
+  if (stopping) return;
+  stopping = true;
+  clearTimeout(voteTimer);
+  var deadline = setTimeout(function () { process.exit(1); }, 10000);
+  deadline.unref();
+  io.close(function () {
+    pool.end().then(function () { clearTimeout(deadline); process.exit(0); })
+      .catch(function () { process.exit(1); });
   });
 }
+process.once('SIGTERM', shutdown);
+process.once('SIGINT', shutdown);
 
 function collectVotesFromResult(result) {
   var votes = {a: 0, b: 0};

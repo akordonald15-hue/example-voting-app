@@ -1,1 +1,20 @@
-node_modules/
+# Allow only runtime sources and the locked dependency manifests.
+**
+!Dockerfile
+!.dockerignore
+!package.json
+!package-lock.json
+!server.js
+!views/
+!views/**
+**/.git
+**/.env*
+**/.npmrc
+**/.ssh
+**/.aws
+**/*credentials*
+**/*secret*
+**/*.pem
+**/*.key
+**/node_modules
+**/*.log

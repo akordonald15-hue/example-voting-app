@@ -1,0 +1,25 @@
+# Only files needed to build and run this application enter the context.
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!app.py
+!templates/
+!templates/**
+!static/
+!static/**
+# Exclude sensitive/local files even inside allowed asset directories.
+**/.git
+**/.env*
+**/.npmrc
+**/.ssh
+**/.aws
+**/*credentials*
+**/*secret*
+**/*.pem
+**/*.key
+**/__pycache__
+**/*.pyc
+**/*.log
+
+!requirements.lock
