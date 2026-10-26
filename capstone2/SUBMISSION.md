@@ -9,8 +9,8 @@ Checkpoint: October 26, 2026. Deadline: October 27, 12:00 WAT.
 | RED instrumentation | Real counter/histogram export passed isolated tests | [Middleware tests](instrumentation/test-red.cjs), [Web smoke](local-services/web/smoke.cjs), [Payment smoke](local-services/payment/smoke.py) |
 | Trace instrumentation | Cart/Catalogue request trace IDs observed; Payment actual OTLP protobuf POST captured locally | Build receipts and Payment smoke; not yet a retrieved Jaeger trace |
 | Application deployment | Local kind installation underway; no all-Ready/checkout claim yet | Add genuine runtime receipts after verification |
-| Steady upstream load | Corrected namespace/URL errors; latest synthetic registration returned HTTP502, sustained success not demonstrated | [Local load generator](local-services/loadgen/) |
-| Prometheus/Grafana | Prometheus returned all four focus targets UP=1 and real RED series; Grafana 3/3 Ready and health API database=ok; rendered dashboard still needs visual evidence | [Local values](monitoring-local.values.yaml) |
+| Steady upstream load | Three-minute one-user run:70requests,65successes,5failures (7.14%); registration/login200; checkout blocked at Shipping | [Local load generator](local-services/loadgen/) |
+| Prometheus/Grafana | Prometheus returned all four focus targets UP=1 and real RED series; Grafana 3/3 Ready and health API database=ok; seven-panel dashboard exported and real panel queries saved; no screenshot | [Local values](monitoring-local.values.yaml) |
 | Fluent Bit/Loki | Real Fluent Bit to Loki Web query returned five lines labelled service=web and level=info | [Configs](observability/config/) |
 | Jaeger | Collector/backend configured; retrieved request trace pending | [Auxiliary chart](observability/) |
 | SLO/error budget | Written policy prepared, sustained measurement pending | [SLO](SLO.md) |
@@ -63,3 +63,5 @@ kubeconfigs, tokens, state, webhooks and private credentials. Prepared configura
 or a running collector is not proof of end-to-end telemetry. No fabricated screenshots.
 
 Runtime receipts include initial failures as well as subsequent successes. See `evidence/runtime/jaeger-v3-catalogue-traces.ndjson`, `loki-web-info-query.json` and `prometheus-up.json`. No complete checkout, delivered Slack alert or successful fresh Trivy scan is claimed.
+
+Latest closeout: [registration investigation](registration-investigation.md), [load summary](evidence/runtime/load-summary.json), [dashboard evidence](evidence/dashboard/README.md), [both-capstone rubric](../docs/final-rubric-status.md). Payment request series were absent in the captured dashboard query; do not claim all four business-service panels contain data.

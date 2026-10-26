@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "name": "robot-shop-loadgen-verified",
+    "namespace": "robot-shop",
+    "uid": "9b73daaf-684e-471e-88c3-5ffc6bd03c5a"
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": "2026-10-26T20:11:28Z",
+        "lastTransitionTime": "2026-10-26T20:11:28Z",
+        "message": "Job was active longer than specified deadline",
+        "reason": "DeadlineExceeded",
+        "status": "True",
+        "type": "FailureTarget"
+      }
+    ],
+    "failed": 1,
+    "ready": 0,
+    "startTime": "2026-10-26T20:07:28Z",
+    "terminating": 1,
+    "uncountedTerminatedPods": {}
+  },
+  "activeDeadlineSeconds": 240
+}

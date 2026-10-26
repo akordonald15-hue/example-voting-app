@@ -1,0 +1,24 @@
+{
+  "planned_duration_seconds": 180,
+  "users": 1,
+  "job_deadline_seconds": 240,
+  "requests": 70,
+  "failures": 5,
+  "successes": 65,
+  "success_percent": 92.8571,
+  "error_percent": 7.1429,
+  "registration": "HTTP200",
+  "login": "HTTP200",
+  "checkout_completed": false,
+  "failures_by_route": {
+    "cart/add": 1,
+    "shipping/codes": 4
+  },
+  "scope": "local kind only; no AWS or production changes",
+  "result": "bounded workload produced actual request/error evidence; full shopping flow not demonstrated",
+  "locust_start_utc": "2026-10-26T20:07:58.319Z",
+  "runtime_limit_logged_utc": "2026-10-26T20:10:49.521Z",
+  "observed_log_interval_seconds": 171.202,
+  "locust_exit_code": 1,
+  "job_result": "FailureTarget DeadlineExceeded; not a successful Job"
+}

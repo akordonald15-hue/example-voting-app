@@ -1,5 +1,5 @@
 {
-  "utc": "2026-10-26T19:37:54.767355+00:00",
+  "utc": "2026-10-26T20:11:40.232379+00:00",
   "pods": [
     {
       "name": "cart-754564d6b9-68bm5",
@@ -120,11 +120,11 @@
     },
     {
       "name": "robot-shop-loadgen-corrected-2zxzf",
-      "phase": "Running",
+      "phase": "Failed",
       "containers": [
         {
           "name": "loadgen",
-          "ready": true,
+          "ready": false,
           "restarts": 0,
           "image": "docker.io/library/capstone2-loadgen:local",
           "imageID": "sha256:440bfe46e2a0239e186fe8e41d33c27b9cae556a8694f854dd473dab049bd2d3"

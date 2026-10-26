@@ -30,3 +30,5 @@ container was stopped and retained. All seven original container IDs were restar
 and running-state restoration verified in `finally`; no container/image/network/
 volume was removed. See [receipt](bounded-retry.json). No further cleanup scope or
 scan retry was attempted. Vulnerability counts remain **unknown**, not zero.
+
+At the subsequent submission-readiness checkpoint Windows had829068KiB free physical memory. No further scanner retry or container stops were attempted: the prior bounded retry failed and scope was not expanded. Existing failure/restoration receipts remain preserved.
