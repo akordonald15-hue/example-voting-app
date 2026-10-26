@@ -1,0 +1,8 @@
+# Explicit inputs prevent local bin/obj, editor files, and secrets being copied.
+**
+!Dockerfile
+!.dockerignore
+!Worker.csproj
+!Program.cs
+
+!packages.lock.json

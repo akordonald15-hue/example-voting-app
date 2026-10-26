@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, make_response, g
 from redis import Redis
+from redis.backoff import NoBackoff
+from redis.retry import Retry
 import os
 import socket
 import random
@@ -18,8 +20,24 @@ app.logger.setLevel(logging.INFO)
 
 def get_redis():
     if not hasattr(g, 'redis'):
-        g.redis = Redis(host="redis", db=0, socket_timeout=5)
+        g.redis = Redis(host=os.getenv('REDIS_HOST', 'redis'), db=0,
+                        socket_connect_timeout=1, socket_timeout=1,
+                        retry=Retry(NoBackoff(), 0))
     return g.redis
+
+@app.get('/health/live')
+def live():
+    return 'ok', 200
+
+
+@app.get('/health/ready')
+def ready():
+    try:
+        get_redis().ping()
+        return 'ok', 200
+    except Exception:
+        return 'dependency unavailable', 503
+
 
 @app.route("/", methods=['POST','GET'])
 def hello():

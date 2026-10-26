@@ -1,0 +1,8 @@
+PRIVATE lab deployment. No public ingress, NodePort, load balancer or seed workload is created.
+Application images must be built/published; stage5-unpublished is NOT an available release.
+Create the approved existing database Secret privately before install. Chart contains no password.
+After separate deployment approval and readiness verification:
+  kubectl -n {{ .Release.Namespace }} port-forward svc/{{ include "voting.fullname" . }}-vote 18080:80 --address 127.0.0.1
+  kubectl -n {{ .Release.Namespace }} port-forward svc/{{ include "voting.fullname" . }}-result 18081:80 --address 127.0.0.1
+Use an approved SSM API tunnel/kubeconfig; run each forwarding command in its own terminal.
+PostgreSQL PVC is retained on uninstall; local-path data is LOST if its EC2 disk is destroyed.

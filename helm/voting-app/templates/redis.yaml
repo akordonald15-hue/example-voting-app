@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "voting.fullname" . }}-redis
+  labels:
+    {{- include "voting.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy: {type: Recreate}
+  selector:
+    matchLabels:
+      {{- include "voting.selector" (dict "root" . "component" "redis") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "voting.selector" (dict "root" . "component" "redis") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: redis
+          image: {{ include "voting.image" .Values.components.redis.image | quote }}
+          imagePullPolicy: {{ .Values.components.redis.image.pullPolicy }}
+          args: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "64mb", "--maxmemory-policy", "noeviction"]
+          ports: [{name: redis, containerPort: 6379}]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          startupProbe:
+            exec: {command: ["/bin/sh", "-ec", 'test "$(redis-cli ping)" = PONG']}
+            periodSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            exec: {command: ["/bin/sh", "-ec", 'test "$(redis-cli ping)" = PONG']}
+            periodSeconds: 5
+          livenessProbe:
+            exec: {command: ["/bin/sh", "-ec", 'test "$(redis-cli ping)" = PONG']}
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.components.redis.resources | nindent 12 }}
+          volumeMounts:
+            - {name: data, mountPath: /data}
+      volumes:
+        - name: data
+          emptyDir: {sizeLimit: 128Mi}

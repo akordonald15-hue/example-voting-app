@@ -4,3 +4,22 @@ bin/
 obj/
 .vs/
 node_modules/
+
+# Terraform local artifacts and sensitive generated files
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+*.plan
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+*.kubeconfig
+kubeconfig*
+.aws/
+capstone-key.json
+# Keep .terraform.lock.hcl and safe *.tfvars.example eligible for future review.

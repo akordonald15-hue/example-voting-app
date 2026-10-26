@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.IO;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using Npgsql;
 using StackExchange.Redis;
@@ -12,12 +14,32 @@ namespace Worker
 {
     public class Program
     {
+        private static volatile bool stopping;
         public static int Main(string[] args)
         {
+            using var terminate = PosixSignalRegistration.Create(PosixSignal.SIGTERM, context => {
+                context.Cancel = true;
+                stopping = true;
+            });
+            using var interrupt = PosixSignalRegistration.Create(PosixSignal.SIGINT, context => {
+                context.Cancel = true;
+                stopping = true;
+            });
             try
             {
-                var pgsql = OpenDbConnection("Server=db;Username=postgres;Password=postgres;");
-                var redisConn = OpenRedisConnection("redis");
+                var dbConfig = new NpgsqlConnectionStringBuilder {
+                    Host = Environment.GetEnvironmentVariable("PGHOST") ?? "db",
+                    Port = int.Parse(Environment.GetEnvironmentVariable("PGPORT") ?? "5432"),
+                    Username = Environment.GetEnvironmentVariable("PGUSER") ?? "postgres",
+                    Password = Environment.GetEnvironmentVariable("PGPASSWORD") ?? "postgres",
+                    Database = Environment.GetEnvironmentVariable("PGDATABASE") ?? "postgres"
+                };
+                var connectionString = dbConfig.ConnectionString;
+                var redisHost = Environment.GetEnvironmentVariable("REDIS_HOST") ?? "redis";
+                var heartbeatPath = Environment.GetEnvironmentVariable("WORKER_HEARTBEAT_PATH");
+                long lastHeartbeat = 0;
+                var pgsql = OpenDbConnection(connectionString);
+                var redisConn = OpenRedisConnection(redisHost);
                 var redis = redisConn.GetDatabase();
 
                 // Keep alive is not implemented in Npgsql yet. This workaround was recommended:
@@ -25,40 +47,50 @@ namespace Worker
                 var keepAliveCommand = pgsql.CreateCommand();
                 keepAliveCommand.CommandText = "SELECT 1";
 
+                void ReconnectDatabase() {
+                    keepAliveCommand.Dispose();
+                    pgsql.Dispose();
+                    pgsql = OpenDbConnection(connectionString);
+                    keepAliveCommand = pgsql.CreateCommand();
+                    keepAliveCommand.CommandText = "SELECT 1";
+                }
                 var definition = new { vote = "", voter_id = "" };
-                while (true)
+                while (!stopping)
                 {
-                    // Slow down to prevent CPU spike, only query each 100ms
                     Thread.Sleep(100);
-
-                    // Reconnect redis if down
-                    if (redisConn == null || !redisConn.IsConnected) {
-                        Console.WriteLine("Reconnecting Redis");
-                        redisConn = OpenRedisConnection("redis");
+                    if (!redisConn.IsConnected) {
+                        redisConn.Dispose();
+                        redisConn = OpenRedisConnection(redisHost);
                         redis = redisConn.GetDatabase();
                     }
                     string json = redis.ListLeftPopAsync("votes").Result;
-                    if (json != null)
-                    {
+                    if (json != null) {
                         var vote = JsonConvert.DeserializeAnonymousType(json, definition);
-                        Console.WriteLine($"Processing vote for '{vote.vote}' by '{vote.voter_id}'");
-                        // Reconnect DB if down
-                        if (!pgsql.State.Equals(System.Data.ConnectionState.Open))
-                        {
-                            Console.WriteLine("Reconnecting DB");
-                            pgsql = OpenDbConnection("Server=db;Username=postgres;Password=postgres;");
+                        // Keep this popped vote until its write succeeds or shutdown is requested.
+                        bool written = false;
+                        while (!written && !stopping) {
+                            try {
+                                if (pgsql.State != System.Data.ConnectionState.Open) ReconnectDatabase();
+                                UpdateVote(pgsql, vote.voter_id, vote.vote);
+                                written = true;
+                            } catch (DbException) { ReconnectDatabase(); }
                         }
-                        else
-                        { // Normal +1 vote requested
-                            UpdateVote(pgsql, vote.voter_id, vote.vote);
-                        }
+                    } else {
+                        try { keepAliveCommand.ExecuteNonQuery(); }
+                        catch (DbException) { ReconnectDatabase(); }
                     }
-                    else
-                    {
-                        keepAliveCommand.ExecuteNonQuery();
+                    var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                    if (!string.IsNullOrEmpty(heartbeatPath) && now - lastHeartbeat >= 5) {
+                        File.WriteAllText(heartbeatPath, now.ToString());
+                        lastHeartbeat = now;
                     }
                 }
+                keepAliveCommand.Dispose();
+                pgsql.Dispose();
+                redisConn.Dispose();
+                return 0;
             }
+            catch (OperationCanceledException) when (stopping) { return 0; }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.ToString());
@@ -68,9 +100,9 @@ namespace Worker
 
         private static NpgsqlConnection OpenDbConnection(string connectionString)
         {
-            NpgsqlConnection connection;
+            NpgsqlConnection connection = null;
 
-            while (true)
+            while (!stopping)
             {
                 try
                 {
@@ -90,6 +122,7 @@ namespace Worker
                 }
             }
 
+            if (stopping) throw new OperationCanceledException();
             Console.Error.WriteLine("Connected to db");
 
             var command = connection.CreateCommand();
@@ -108,7 +141,7 @@ namespace Worker
             var ipAddress = GetIp(hostname);
             Console.WriteLine($"Found redis at {ipAddress}");
 
-            while (true)
+            while (!stopping)
             {
                 try
                 {
@@ -121,6 +154,7 @@ namespace Worker
                     Thread.Sleep(1000);
                 }
             }
+            throw new OperationCanceledException();
         }
 
         private static string GetIp(string hostname)
@@ -140,7 +174,7 @@ namespace Worker
                 command.Parameters.AddWithValue("@vote", vote);
                 command.ExecuteNonQuery();
             }
-            catch (DbException)
+            catch (PostgresException error) when (error.SqlState == "23505")
             {
                 command.CommandText = "UPDATE votes SET vote = @vote WHERE id = @id";
                 command.ExecuteNonQuery();
