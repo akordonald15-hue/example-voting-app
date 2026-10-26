@@ -41,7 +41,7 @@ jobs:
           version: v0.75.0
           format: json
           output: trivy-vote.json
-          severity: HIGH,CRITICAL
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           ignore-unfixed: false
           exit-code: '1'
           scanners: vuln
@@ -52,7 +52,7 @@ jobs:
           version: v0.75.0
           format: json
           output: trivy-result.json
-          severity: HIGH,CRITICAL
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           ignore-unfixed: false
           exit-code: '1'
           scanners: vuln
@@ -63,7 +63,7 @@ jobs:
           version: v0.75.0
           format: json
           output: trivy-worker.json
-          severity: HIGH,CRITICAL
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           ignore-unfixed: false
           exit-code: '1'
           scanners: vuln
