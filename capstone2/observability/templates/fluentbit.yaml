@@ -1,0 +1,89 @@
+{{- $digest := required "resolve/review fluentbit digest" .Values.fluentbit.digest }}
+{{- if not (regexMatch "^sha256:[a-f0-9]{64}$" $digest) }}{{ fail "invalid fluentbit digest" }}{{ end }}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata: {name: fluent-bit}
+spec:
+  selector: {matchLabels: {app: fluent-bit}}
+  template:
+    metadata: {labels: {app: fluent-bit, capstone2-component: auxiliary}}
+    spec:
+      automountServiceAccountToken: false
+      securityContext: {seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: fluent-bit
+          image: {{ printf "%s@%s" .Values.fluentbit.repository $digest | quote }}
+          args: [-c, /config/fluent-bit.conf]
+          securityContext: {runAsUser: 0, allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
+          resources: {requests: {cpu: 50m, memory: 32Mi}, limits: {cpu: 200m, memory: 96Mi}}
+          volumeMounts:
+            - {name: config, mountPath: /config, readOnly: true}
+            - {name: logs, mountPath: /var/log/pods, readOnly: true}
+            - {name: state, mountPath: /state}
+      volumes:
+        - {name: config, configMap: {name: fluent-bit-config}}
+        - {name: logs, hostPath: {path: /var/log/pods, type: Directory}}
+        - {name: state, emptyDir: {sizeLimit: 64Mi}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: fluent-bit-config}
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush 5
+        Log_Level warn
+        storage.path /state
+        Parsers_File /config/parsers.conf
+    [INPUT]
+        Name tail
+        Path /var/log/pods/robot-shop_*/*/*.log
+        Tag robot-shop
+        Parser cri
+        Path_Key source_file
+        DB /state/tail.db
+        Read_from_Head false
+        Mem_Buf_Limit 10MB
+        Skip_Long_Lines On
+        storage.type filesystem
+    [FILTER]
+        Name lua
+        Match robot-shop
+        script /config/enrich.lua
+        call enrich
+    [OUTPUT]
+        Name loki
+        Match robot-shop
+        Host loki
+        Port 3100
+        Labels job=robot-shop,namespace=robot-shop,service=$service,level=$level
+        Line_Format json
+        Retry_Limit 5
+        storage.total_limit_size 32M
+  parsers.conf: |
+    [PARSER]
+        Name cri
+        Format regex
+        Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<_p>[^ ]*) (?<log>.*)$
+  enrich.lua: |
+    function enrich(tag, timestamp, record)
+        local path = record["source_file"] or ""
+        record["service"] = path:match("/([^/]+)/[^/]+%.log$") or "unknown"
+        local line = record["log"] or ""
+        local level = line:match('"level"%s*:%s*"([%a]+)"')
+        if not level then
+            local number = line:match('"level"%s*:%s*(%d+)')
+            local levels = { ["10"]="trace", ["20"]="debug", ["30"]="info", ["40"]="warn", ["50"]="error", ["60"]="fatal" }
+            level = levels[number]
+        end
+        if not level then
+            if line:match("ERROR") or line:match("[Ee]rror") then level = "error"
+            elseif line:match("WARN") then level = "warn"
+            else level = "unknown" end
+        end
+        level = level:lower()
+        if level == "warning" then level = "warn" end
+        local allowed = {trace=true, debug=true, info=true, warn=true, error=true, fatal=true, unknown=true}
+        record["level"] = allowed[level] and level or "unknown"
+        return 1, timestamp, record
+    end

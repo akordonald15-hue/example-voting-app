@@ -1,0 +1,14 @@
+# LOCAL KIND ONLY. Images loaded from reviewed local builds, never pushed.
+localDemo: true
+localImages:
+  web: capstone2-web:local
+  cart: capstone2-cart:local
+  catalogue: capstone2-catalogue:local
+  payment: capstone2-payment:local
+  loadgen: capstone2-loadgen:local
+image:
+  pullPolicy: IfNotPresent
+payment:
+  gateway: http://payment:8080/health
+redis:
+  storageClassName: standard

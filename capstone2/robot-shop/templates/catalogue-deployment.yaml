@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue
+  labels:
+    service: catalogue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: catalogue
+  template:
+    metadata:
+      labels:
+        service: catalogue
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: catalogue
+        image: {{ include "robot.image" (dict "root" . "name" "catalogue") }}
+        imagePullPolicy: {{ if .Values.localDemo }}Never{{ else }}{{ .Values.image.pullPolicy }}{{ end }}
+        env:
+          - {name: OTEL_SERVICE_NAME, value: catalogue}
+          - {name: OTEL_EXPORTER_OTLP_ENDPOINT, value: 'http://otel.observability.svc.cluster.local:4318'}
+          - {name: OTEL_EXPORTER_OTLP_PROTOCOL, value: http/protobuf}
+          - {name: OTEL_TRACES_SAMPLER, value: always_on}
+        ports:
+        - containerPort: 8080
+        readinessProbe: {httpGet: {path: /health, port: 8080}, periodSeconds: 5, failureThreshold: 12}
+        startupProbe: {tcpSocket: {port: 8080}, periodSeconds: 5, failureThreshold: 36}
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+      restartPolicy: Always
+      {{- with .Values.catalogue.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.catalogue.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.catalogue.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

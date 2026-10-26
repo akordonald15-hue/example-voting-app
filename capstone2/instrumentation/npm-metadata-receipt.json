@@ -1,0 +1,42 @@
+[
+  {
+    "name": "@opentelemetry/sdk-node",
+    "version": "0.300.0",
+    "engines": {
+      "node": ">=22.15.0"
+    },
+    "integrity": "sha512-yRaNP91ilq0m5fBCXSo7ZTR1NDd/GPu02uq0Rur2kMw7VheHwkV8i68oYt4/vM+eofRFKYCGS5B2QrgcZS/rmw==",
+    "source": "https://registry.npmjs.org/@opentelemetry/sdk-node/0.300.0",
+    "inspectedAt": "2026-10-26T18:01:51.9645026Z"
+  },
+  {
+    "name": "@opentelemetry/auto-instrumentations-node",
+    "version": "0.82.0",
+    "engines": {
+      "node": ">=22.15.0"
+    },
+    "integrity": "sha512-WL4U3IZ9a0lHPj9l+c7IWJN+G2LPlM1/Otk15a5qrIkByEw9XCmZ2SwCf8fNZnCf5MNOP0D8LMaR8kv1MWtaFQ==",
+    "source": "https://registry.npmjs.org/@opentelemetry/auto-instrumentations-node/0.82.0",
+    "inspectedAt": "2026-10-26T18:01:53.4342170Z"
+  },
+  {
+    "name": "@opentelemetry/exporter-trace-otlp-http",
+    "version": "0.300.0",
+    "engines": {
+      "node": ">=22.15.0"
+    },
+    "integrity": "sha512-Dwdagba93cdhROlFGbkU4yK4hvd3l0k7WV9nvTWIoN6KwxFP+HCvy9EkgIpyfN11fVdIWxY3XqOwWOq83OPfcA==",
+    "source": "https://registry.npmjs.org/@opentelemetry/exporter-trace-otlp-http/0.300.0",
+    "inspectedAt": "2026-10-26T18:01:55.7240262Z"
+  },
+  {
+    "name": "@opentelemetry/api",
+    "version": "1.10.0",
+    "engines": {
+      "node": ">=8.0.0"
+    },
+    "integrity": "sha512-lMkyes8iHrG+mk6WH7X70MdCLI2RS0FwNBY1PyQ8UemaijE2m5mv5A0Niy3HtbYTFrgkUEQjFMXmSAk2hQDuPQ==",
+    "source": "https://registry.npmjs.org/@opentelemetry/api/1.10.0",
+    "inspectedAt": "2026-10-26T18:01:56.8772534Z"
+  }
+]

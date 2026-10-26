@@ -1,0 +1,556 @@
+[
+  {
+    "name": "blackbox-86ccbcb69b-f992g",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [blackbox]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [blackbox]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "blackbox",
+        "ready": false,
+        "restarts": 0,
+        "image": "prom/blackbox-exporter@sha256:ea1c7aa3ef3f307cd03e85f34abb604478ccb90b567fc690da0cd9776da76b13",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "fluent-bit-7jd5h",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [fluent-bit]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [fluent-bit]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "fluent-bit",
+        "ready": false,
+        "restarts": 0,
+        "image": "fluent/fluent-bit@sha256:2740f387f6e68fab66d28e4fa6a853387b9cab6ffb4cb78958f69bba4eb0e7b4",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "jaeger-56c4454db6-2sv48",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [jaeger]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [jaeger]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "jaeger",
+        "ready": false,
+        "restarts": 0,
+        "image": "jaegertracing/jaeger@sha256:836b967b5abcf1f7758066aa6b348619267a2f1459f72d472840570f9bd88a17",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "loki-7c46fc8696-4fcxv",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [loki]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [loki]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "loki",
+        "ready": false,
+        "restarts": 0,
+        "image": "grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "monitoring-grafana-54dbff44c-l7x6n",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [grafana-sc-dashboard grafana-sc-datasources grafana]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [grafana-sc-dashboard grafana-sc-datasources grafana]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "grafana",
+        "ready": false,
+        "restarts": 0,
+        "image": "docker.io/grafana/grafana:13.2.4-distroless",
+        "imageID": ""
+      },
+      {
+        "name": "grafana-sc-dashboard",
+        "ready": false,
+        "restarts": 0,
+        "image": "quay.io/kiwigrid/k8s-sidecar:2.14.1",
+        "imageID": ""
+      },
+      {
+        "name": "grafana-sc-datasources",
+        "ready": false,
+        "restarts": 0,
+        "image": "quay.io/kiwigrid/k8s-sidecar:2.14.1",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "monitoring-kube-state-metrics-799b597d4c-fmj5w",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [kube-state-metrics]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [kube-state-metrics]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "kube-state-metrics",
+        "ready": false,
+        "restarts": 0,
+        "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "monitoring-operator-6bcfc49748-5nv5p",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [kube-prometheus-stack]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [kube-prometheus-stack]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "kube-prometheus-stack",
+        "ready": false,
+        "restarts": 0,
+        "image": "quay.io/prometheus-operator/prometheus-operator:v0.94.1",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "monitoring-operator-7f6cfb8f79-6nsrw",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:27:37Z",
+        "observedGeneration": 1,
+        "status": "False",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:27:37Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:27:37Z",
+        "message": "containers with unready status: [kube-prometheus-stack]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:27:37Z",
+        "message": "containers with unready status: [kube-prometheus-stack]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:27:37Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "kube-prometheus-stack",
+        "ready": false,
+        "restarts": 0,
+        "image": "quay.io/prometheus-operator/prometheus-operator:v0.94.1",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "monitoring-prometheus-node-exporter-2qkrs",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [node-exporter]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "message": "containers with unready status: [node-exporter]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:09:45Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "node-exporter",
+        "ready": false,
+        "restarts": 0,
+        "image": "quay.io/prometheus/node-exporter:v1.12.1-distroless",
+        "imageID": ""
+      }
+    ]
+  },
+  {
+    "name": "otel-6fb6746c75-zxr2c",
+    "phase": "Pending",
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [otel]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "message": "containers with unready status: [otel]",
+        "observedGeneration": 1,
+        "reason": "ContainersNotReady",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-26T18:11:14Z",
+        "observedGeneration": 1,
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "name": "otel",
+        "ready": false,
+        "restarts": 0,
+        "image": "otel/opentelemetry-collector-contrib@sha256:7f22d2a6748110ffb6a59bc0df448bccbf501cdb667d610ede4c61d3863d5849",
+        "imageID": ""
+      }
+    ]
+  }
+]

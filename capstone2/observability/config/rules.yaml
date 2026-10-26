@@ -1,0 +1,20 @@
+groups:
+  - name: robot-shop-slo
+    rules:
+      - record: robot_shop:availability:1h
+        expr: avg_over_time(probe_success{job="robot-shop-availability"}[1h])
+      - alert: RobotShopUnavailable
+        expr: probe_success{job="robot-shop-availability"} == 0
+        for: 1m
+        labels: {severity: page, service: robot-shop}
+        annotations:
+          summary: Robot Shop catalogue transaction unavailable
+          description: Investigate the probe, catalogue and MongoDB; freeze lab changes. No automatic rollback.
+          runbook_url: https://github.com/akordonald15-hue/example-voting-app/blob/main/capstone2/runbook.md
+      - alert: RobotShopProbeMissing
+        expr: absent(probe_success{job="robot-shop-availability"}) or up{job="robot-shop-availability"} == 0
+        for: 2m
+        labels: {severity: page, service: robot-shop}
+        annotations:
+          summary: Robot Shop availability telemetry missing
+          runbook_url: https://github.com/akordonald15-hue/example-voting-app/blob/main/capstone2/runbook.md

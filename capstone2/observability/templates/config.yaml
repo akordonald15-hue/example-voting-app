@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: observability-config}
+data:
+{{ (.Files.Glob "config/*.yaml").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-robot-shop-dashboard
+  labels: {grafana_dashboard: '1'}
+data:
+  robot-shop.json: {{ .Files.Get "dashboards/robot-shop.json" | quote }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: robot-shop-slo
+  labels: {release: monitoring}
+spec:
+{{ .Files.Get "config/rules.yaml" | indent 2 }}

@@ -1,0 +1,153 @@
+# LOCAL ONLY: real alert evaluation, no Slack delivery claimed.
+fullnameOverride: monitoring
+defaultRules:
+  create: false
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+prometheus:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  prometheusSpec:
+    retention: 2h
+    retentionSize: 512MB
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    additionalScrapeConfigs:
+    - job_name: robot-shop-availability
+      metrics_path: /probe
+      params:
+        module:
+        - http_success
+      static_configs:
+      - targets:
+        - http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products
+      relabel_configs:
+      - source_labels:
+        - __address__
+        target_label: __param_target
+      - source_labels:
+        - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox.observability.svc.cluster.local:9115
+    - job_name: robot-shop-cart
+      static_configs:
+      - targets:
+        - cart.robot-shop.svc.cluster.local:8080
+    - job_name: robot-shop-web
+      static_configs:
+      - targets:
+        - web.robot-shop.svc.cluster.local:8080
+    - job_name: robot-shop-catalogue
+      static_configs:
+      - targets:
+        - catalogue.robot-shop.svc.cluster.local:8080
+    - job_name: robot-shop-payment
+      static_configs:
+      - targets:
+        - payment.robot-shop.svc.cluster.local:8080
+grafana:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  admin:
+    existingSecret: capstone2-grafana
+    userKey: username
+    passwordKey: password
+  persistence:
+    enabled: false
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: observability
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    datasources:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+  additionalDataSources:
+  - name: Loki
+    uid: loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+  - name: Jaeger
+    uid: jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+  defaultDashboardsEnabled: false
+alertmanager:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  alertmanagerSpec:
+    secrets: []
+    resources:
+      requests:
+        cpu: 25m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
+  config:
+    route:
+      receiver: local-no-delivery
+    receivers:
+    - name: local-no-delivery
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi

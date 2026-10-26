@@ -1,0 +1,8 @@
+{
+  "chart": "kube-prometheus-stack",
+  "version": "92.7.0",
+  "source": "https://prometheus-community.github.io/helm-charts",
+  "sha256": "af35d3e93750ce46d90cbb6537483c8fa914f19fbffa19fbabcb2825181a0f1a",
+  "size": 934149,
+  "signatureVerified": false
+}

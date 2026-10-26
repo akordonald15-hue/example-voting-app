@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+  labels:
+    service: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: cart
+  template:
+    metadata:
+      labels:
+        service: cart
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: cart
+        image: {{ include "robot.image" (dict "root" . "name" "cart") }}
+        imagePullPolicy: {{ if .Values.localDemo }}Never{{ else }}{{ .Values.image.pullPolicy }}{{ end }}
+        env:
+          - {name: OTEL_SERVICE_NAME, value: cart}
+          - {name: OTEL_EXPORTER_OTLP_ENDPOINT, value: 'http://otel.observability.svc.cluster.local:4318'}
+          - {name: OTEL_EXPORTER_OTLP_PROTOCOL, value: http/protobuf}
+          - {name: OTEL_TRACES_SAMPLER, value: always_on}
+        ports:
+        - containerPort: 8080
+        readinessProbe: {httpGet: {path: /health, port: 8080}, periodSeconds: 5, failureThreshold: 12}
+        startupProbe: {tcpSocket: {port: 8080}, periodSeconds: 5, failureThreshold: 36}
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+      {{- with .Values.cart.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cart.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cart.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

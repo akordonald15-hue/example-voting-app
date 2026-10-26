@@ -1,0 +1,27 @@
+{{- if .Values.loadgen.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata: {name: robot-shop-loadgen}
+spec:
+  activeDeadlineSeconds: 360
+  backoffLimit: 0
+  template:
+    metadata: {labels: {service: loadgen}}
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 1000, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: loadgen
+          image: {{ include "robot.image" (dict "root" . "name" "loadgen") }}
+          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: [ALL]}}
+          env:
+            - {name: HOST, value: 'http://web:8080/'}
+            - {name: NUM_CLIENTS, value: '1'}
+            - {name: RUN_TIME, value: 5m}
+            - {name: ERROR, value: '0'}
+            - {name: SILENT, value: '0'}
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {cpu: 200m, memory: 256Mi}
+{{- end }}

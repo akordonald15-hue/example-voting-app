@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  labels:
+    service: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: user
+  template:
+    metadata:
+      labels:
+        service: user
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: user
+        image: {{ include "robot.image" (dict "root" . "name" "user") }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          # agent networking access
+        ports:
+        - containerPort: 8080
+        readinessProbe: {tcpSocket: {port: 8080}, periodSeconds: 5, failureThreshold: 12}
+        startupProbe: {tcpSocket: {port: 8080}, periodSeconds: 5, failureThreshold: 36}
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+      restartPolicy: Always
+      {{- with .Values.user.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.user.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.user.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,23 @@
+{
+  "name": "catalogue",
+  "version": "1.0.0",
+  "description": "product catalogue REST API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SteveW",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "mongodb": "^3.5.3",
+    "pino": "^5.10.8",
+    "express-pino-logger": "^4.0.0",
+    "pino-pretty": "^2.5.0",
+    "@opentelemetry/sdk-node": "0.300.0",
+    "@opentelemetry/auto-instrumentations-node": "0.82.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.300.0",
+    "@opentelemetry/api": "1.10.0"
+  }
+}

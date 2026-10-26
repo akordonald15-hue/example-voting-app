@@ -1,5 +1,36 @@
 # Example Voting App
 
+## AWS DevOps Capstone 1 — Ship It
+
+**Submission entry point (October 26, 2026):** [current evidence, rubric status and submission instructions](docs/submission-readiness.md).
+Earlier audits are historical checkpoints; use this entry point for current claims.
+Robot Shop is maintained separately under [capstone2](capstone2/README.md).
+The existing AWS t3.medium cannot fit the proposed combined resource requests.
+Never delete the Voting App PostgreSQL volume for a demo.
+
+The capstone deployment uses **one Helm chart**, Terraform-managed AWS EC2/K3s,
+GHCR digest-pinned images, private SSM browser access and persistent PostgreSQL.
+The owner reports healthy Helm revision **2 deployed**, five Ready workloads and
+successful browser voting/live-score updates. Preserve that database; historical
+recovery procedures must not be rerun.
+
+Start with the [submission guide, architecture, CI/CD limitations and evidence](docs/submission-readiness.md).
+The chart is [helm/voting-app](helm/voting-app/README.md), infrastructure code is
+[terraform](terraform/), and the proposed pipeline is
+[capstone.yaml](.github/workflows/capstone.yaml). Hosted testing, all-severity
+scanning and GHCR publication succeeded for the recorded release. Production
+deployment is a separate, unproven automation gate; Terraform destroy/recreate
+has **not been demonstrated**. The [isolated local Helm rollback](docs/rollback-evidence/README.md)
+passed using a Vote-only fixture, not the full production application.
+Publication and deployment are independently opt-in. The upstream examples below are background, **not
+the capstone deployment procedure**; do not apply the legacy NodePort manifests
+to the working cluster.
+
+Local validation uses `scripts/validate-helm.py` (Helm + PyYAML) and
+`scripts/test-stage5-local.py` (disposable Docker integration with explicit image
+IDs). The pipeline builds each Dockerfile's `final` target before testing it.
+No public ingress, Docker Hub credentials or public Kubernetes API are required.
+
 A simple distributed application running across multiple Docker containers.
 
 ## Getting started

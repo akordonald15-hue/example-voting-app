@@ -1,0 +1,1 @@
+locust 2.47.0 from /usr/local/lib/python3.12/site-packages/locust (Python 3.12.14)

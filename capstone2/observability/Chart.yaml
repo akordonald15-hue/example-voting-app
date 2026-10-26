@@ -1,0 +1,5 @@
+apiVersion: v2
+name: capstone-observability
+version: 0.1.0
+description: Private, bounded single-node Robot Shop lab (approval required)
+type: application
