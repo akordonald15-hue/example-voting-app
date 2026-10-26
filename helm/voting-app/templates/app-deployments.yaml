@@ -1,0 +1,109 @@
+{{- range $name := list "vote" "result" "worker" }}
+{{- $component := index $.Values.components $name }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "voting.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "voting.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $name }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "voting.selector" (dict "root" $ "component" $name) | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "voting.selector" (dict "root" $ "component" $name) | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      {{- with $.Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: {{ $name }}
+          image: {{ include "voting.image" $component.image | quote }}
+          imagePullPolicy: {{ $component.image.pullPolicy }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          {{- if eq $name "vote" }}
+          command: ["gunicorn", "app:app", "--bind", "0.0.0.0:8080", "--workers", "2", "--threads", "2", "--worker-tmp-dir", "/tmp", "--access-logfile", "-", "--error-logfile", "-"]
+          {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "voting.fullname" $ }}-config
+          env:
+            {{- if eq $name "worker" }}
+            - name: WORKER_HEARTBEAT_PATH
+              value: /tmp/worker-heartbeat
+            {{- else }}
+            - name: PORT
+              value: "8080"
+            {{- end }}
+            {{- if ne $name "vote" }}
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Values.database.existingSecret | quote }}
+                  key: {{ $.Values.database.passwordKey | quote }}
+            {{- end }}
+          {{- if ne $name "worker" }}
+          ports:
+            - name: http
+              containerPort: 8080
+          startupProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 5
+            failureThreshold: 60
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet: {path: /health/ready, port: http}
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          {{- else }}
+          startupProbe:
+            exec:
+              command: ["/bin/sh", "-ec", "test -s /tmp/worker-heartbeat"]
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "-ec", 'test -s /tmp/worker-heartbeat && test "$(( $(date +%s) - $(cat /tmp/worker-heartbeat) ))" -lt 60']
+            periodSeconds: 10
+            timeoutSeconds: 3
+          {{- end }}
+          resources:
+            {{- toYaml $component.resources | nindent 12 }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
+{{- end }}

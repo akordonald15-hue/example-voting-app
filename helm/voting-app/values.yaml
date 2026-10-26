@@ -1,0 +1,79 @@
+# Application tags below are deliberate UNPUBLISHED placeholders. Publish modified images before deployment.
+# Supply an existing Secret; this file contains no passwords. Prefer image digests after publishing.
+imagePullSecrets: []
+database:
+  existingSecret: voting-app-db
+  passwordKey: password
+  user: postgres
+  name: postgres
+  storageClass: local-path
+  storageSize: 2Gi
+options:
+  a: Cats
+  b: Dogs
+components:
+  vote:
+    image:
+      repository: ghcr.io/akordonald15-hue/example-voting-app-vote
+      tag: stage5-unpublished
+      digest: ''
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+  result:
+    image:
+      repository: ghcr.io/akordonald15-hue/example-voting-app-result
+      tag: stage5-unpublished
+      digest: ''
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 100m
+        memory: 96Mi
+      limits:
+        cpu: 500m
+        memory: 192Mi
+  worker:
+    image:
+      repository: ghcr.io/akordonald15-hue/example-voting-app-worker
+      tag: stage5-unpublished
+      digest: ''
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+  redis:
+    image:
+      repository: redis
+      tag: alpine
+      digest: sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 250m
+        memory: 128Mi
+  postgres:
+    image:
+      repository: postgres
+      tag: 15-alpine
+      digest: sha256:f7d23353e1b15400d22ebe31189f4d314b87a4c129cc400c8c2d8d4ca127bf81
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 100m
+        memory: 192Mi
+      limits:
+        cpu: 500m
+        memory: 384Mi

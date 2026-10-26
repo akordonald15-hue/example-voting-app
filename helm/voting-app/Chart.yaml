@@ -1,0 +1,7 @@
+apiVersion: v2
+name: voting-app
+description: Five-service Voting App for a private single-node K3s lab
+type: application
+version: 0.1.0
+appVersion: stage5-unpublished
+kubeVersion: ">=1.28.0-0 <1.37.0-0"

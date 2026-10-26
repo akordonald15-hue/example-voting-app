@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "voting.fullname" . }}-postgres
+  labels:
+    {{- include "voting.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "voting.fullname" . }}-postgres
+  replicas: 1
+  revisionHistoryLimit: 2
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  selector:
+    matchLabels:
+      {{- include "voting.selector" (dict "root" . "component" "postgres") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "voting.selector" (dict "root" . "component" "postgres") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        fsGroup: 70
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: postgres
+          image: {{ include "voting.image" .Values.components.postgres.image | quote }}
+          imagePullPolicy: {{ .Values.components.postgres.image.pullPolicy }}
+          args: ["postgres", "-c", "max_connections=30", "-c", "shared_buffers=64MB"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.database.user | quote }}
+            - name: POSTGRES_DB
+              value: {{ .Values.database.name | quote }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.existingSecret | quote }}
+                  key: {{ .Values.database.passwordKey | quote }}
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports: [{name: postgres, containerPort: 5432}]
+          startupProbe:
+            exec:
+              command: ["/bin/sh", "-ec", 'pg_isready -h 127.0.0.1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "-ec", 'pg_isready -h 127.0.0.1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["/bin/sh", "-ec", 'pg_isready -h 127.0.0.1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            periodSeconds: 10
+            failureThreshold: 6
+          resources:
+            {{- toYaml .Values.components.postgres.resources | nindent 12 }}
+          volumeMounts:
+            - {name: data, mountPath: /var/lib/postgresql/data}
+            - {name: run, mountPath: /var/run/postgresql}
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: run
+          emptyDir: {sizeLimit: 16Mi}
+        - name: tmp
+          emptyDir: {sizeLimit: 32Mi}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          {{- include "voting.labels" . | nindent 10 }}
+      spec:
+        accessModes: [ReadWriteOnce]
+        storageClassName: {{ .Values.database.storageClass | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.database.storageSize | quote }}

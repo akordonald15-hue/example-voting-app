@@ -1,0 +1,21 @@
+{{- range $name := list "vote" "result" "redis" "postgres" }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "voting.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "voting.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $name }}
+spec:
+  type: ClusterIP
+  {{- if eq $name "postgres" }}
+  clusterIP: None
+  {{- end }}
+  selector:
+    {{- include "voting.selector" (dict "root" $ "component" $name) | nindent 4 }}
+  ports:
+    - name: {{ if or (eq $name "vote") (eq $name "result") }}http{{ else }}{{ $name }}{{ end }}
+      port: {{ if eq $name "redis" }}6379{{ else if eq $name "postgres" }}5432{{ else }}80{{ end }}
+      targetPort: {{ if eq $name "redis" }}6379{{ else if eq $name "postgres" }}5432{{ else }}http{{ end }}
+{{- end }}

@@ -1,0 +1,57 @@
+﻿name: voting-production-test
+
+services:
+  vote:
+    image: example-voting-app-vote:production
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:9080:80"
+
+  result:
+    image: example-voting-app-result:production
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: postgres
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:9081:80"
+
+  worker:
+    image: example-voting-app-worker:production
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+
+  redis:
+    image: redis:alpine@sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  db:
+    image: postgres:15-alpine@sha256:f7d23353e1b15400d22ebe31189f4d314b87a4c129cc400c8c2d8d4ca127bf81
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - production-test-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  production-test-db:

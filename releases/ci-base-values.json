@@ -1,0 +1,111 @@
+{
+  "imagePullSecrets": [
+    {
+      "name": "ghcr-pull"
+    }
+  ],
+  "database": {
+    "existingSecret": "voting-app-db",
+    "passwordKey": "password",
+    "user": "postgres",
+    "name": "postgres",
+    "storageClass": "local-path",
+    "storageSize": "2Gi"
+  },
+  "options": {
+    "a": "Cats",
+    "b": "Dogs"
+  },
+  "components": {
+    "vote": {
+      "image": {
+        "repository": "ghcr.io/akordonald15-hue/example-voting-app-vote",
+        "tag": "rc-210f72a4e0f21c6f304164468747cbd32be04e04553da91cddcf9d4ef4a410f3",
+        "digest": "sha256:32c93eb5b2cbaf9a08cfdc709b3549fa282ffc3297b159a20bf7e7e641d5eb25",
+        "pullPolicy": "IfNotPresent"
+      },
+      "resources": {
+        "requests": {
+          "cpu": "100m",
+          "memory": "128Mi"
+        },
+        "limits": {
+          "cpu": "500m",
+          "memory": "256Mi"
+        }
+      }
+    },
+    "result": {
+      "image": {
+        "repository": "ghcr.io/akordonald15-hue/example-voting-app-result",
+        "tag": "rc-210f72a4e0f21c6f304164468747cbd32be04e04553da91cddcf9d4ef4a410f3",
+        "digest": "sha256:2b5271d6620ffa936ad44049946179e0666fb29cce5c7d3cfbcde8545fe073b5",
+        "pullPolicy": "IfNotPresent"
+      },
+      "resources": {
+        "requests": {
+          "cpu": "100m",
+          "memory": "96Mi"
+        },
+        "limits": {
+          "cpu": "500m",
+          "memory": "192Mi"
+        }
+      }
+    },
+    "worker": {
+      "image": {
+        "repository": "ghcr.io/akordonald15-hue/example-voting-app-worker",
+        "tag": "rc-210f72a4e0f21c6f304164468747cbd32be04e04553da91cddcf9d4ef4a410f3",
+        "digest": "sha256:919fa13250911aa52397d5a11d7277c64626824f30068a46ff5630e46d5349ac",
+        "pullPolicy": "IfNotPresent"
+      },
+      "resources": {
+        "requests": {
+          "cpu": "100m",
+          "memory": "128Mi"
+        },
+        "limits": {
+          "cpu": "500m",
+          "memory": "256Mi"
+        }
+      }
+    },
+    "redis": {
+      "image": {
+        "repository": "redis",
+        "tag": "alpine",
+        "digest": "sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0",
+        "pullPolicy": "IfNotPresent"
+      },
+      "resources": {
+        "requests": {
+          "cpu": "50m",
+          "memory": "64Mi"
+        },
+        "limits": {
+          "cpu": "250m",
+          "memory": "128Mi"
+        }
+      }
+    },
+    "postgres": {
+      "image": {
+        "repository": "postgres",
+        "tag": "15-alpine",
+        "digest": "sha256:f7d23353e1b15400d22ebe31189f4d314b87a4c129cc400c8c2d8d4ca127bf81",
+        "pullPolicy": "IfNotPresent"
+      },
+      "resources": {
+        "requests": {
+          "cpu": "100m",
+          "memory": "192Mi"
+        },
+        "limits": {
+          "cpu": "500m",
+          "memory": "384Mi"
+        }
+      }
+    }
+  }
+}

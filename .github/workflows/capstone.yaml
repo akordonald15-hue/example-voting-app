@@ -1,0 +1,145 @@
+name: Capstone verified release
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: capstone-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: pip install PyYAML==6.0.3
+      - name: Check deployment render guard
+        run: python -B -m unittest discover -s scripts -p 'test_ci_*.py' -v
+      - name: Build final runtime targets
+        run: |
+          set -euo pipefail
+          for role in vote result worker; do
+            docker build --target final --tag capstone-$role:test "$role"
+          done
+          python -c 'import json,subprocess; json.dump({r:subprocess.check_output(["docker","image","inspect","--format","{{.Id}}","capstone-"+r+":test"],text=True).strip() for r in ("vote","result","worker")},open("images.json","w"))'
+      - name: Five-component integration and persistence tests (disposable Docker only)
+        run: python scripts/test-stage5-local.py --images images.json --report acceptance.json
+      - name: Scan Vote
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: capstone-vote:test
+          version: v0.75.0
+          format: json
+          output: trivy-vote.json
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          scanners: vuln
+      - name: Scan Result
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+        with:
+          image-ref: capstone-result:test
+          version: v0.75.0
+          format: json
+          output: trivy-result.json
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          scanners: vuln
+      - name: Scan Worker
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+        with:
+          image-ref: capstone-worker:test
+          version: v0.75.0
+          format: json
+          output: trivy-worker.json
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          scanners: vuln
+      - name: Export the tested bytes
+        run: docker save capstone-vote:test capstone-result:test capstone-worker:test -o tested-images.tar
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tested-images
+          path: tested-images.tar
+          retention-days: 1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: acceptance
+          path: |
+            acceptance.json
+            images.json
+            trivy-*.json
+  publish:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.CAPSTONE_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: tested-images
+      - name: Publish only previously tested images
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          docker load -i tested-images.tar
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          for role in vote result worker; do
+            image="ghcr.io/akordonald15-hue/example-voting-app-$role:$GITHUB_SHA"
+            docker tag "capstone-$role:test" "$image"
+            docker push "$image"
+          done
+          python scripts/ci-release-values.py > values.ci.yaml
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-values
+          path: values.ci.yaml
+  deploy:
+    needs: publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.CAPSTONE_DEPLOY_ENABLED == 'true'
+    environment: capstone-production
+    runs-on: [self-hosted, linux, capstone-private-deploy]
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: release-values
+      - name: Upgrade through the private deployment connection
+        env:
+          KUBECONFIG: ${{ vars.CAPSTONE_DEPLOY_KUBECONFIG }}
+          CAPSTONE_EXPECTED_PVC_UID: ${{ vars.CAPSTONE_EXPECTED_PVC_UID }}
+        run: bash scripts/ci-deploy.sh
+      - name: Preserve bounded deployment receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: deployment-evidence
+          path: deployment-evidence/
+          if-no-files-found: warn
+          retention-days: 14
