@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: robot-shop-loadgen-corrected
+  namespace: robot-shop
+spec:
+  activeDeadlineSeconds: 360
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        service: loadgen
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - env:
+        - name: HOST
+          value: http://web:8080
+        - name: NUM_CLIENTS
+          value: '1'
+        - name: RUN_TIME
+          value: 5m
+        - name: ERROR
+          value: '0'
+        - name: SILENT
+          value: '0'
+        image: docker.io/library/capstone2-loadgen:local
+        name: loadgen
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - emptyDir:
+          sizeLimit: 64Mi
+        name: tmp

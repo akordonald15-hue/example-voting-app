@@ -9,13 +9,13 @@ Checkpoint: October 26, 2026. Deadline: October 27, 12:00 WAT.
 | RED instrumentation | Real counter/histogram export passed isolated tests | [Middleware tests](instrumentation/test-red.cjs), [Web smoke](local-services/web/smoke.cjs), [Payment smoke](local-services/payment/smoke.py) |
 | Trace instrumentation | Cart/Catalogue request trace IDs observed; Payment actual OTLP protobuf POST captured locally | Build receipts and Payment smoke; not yet a retrieved Jaeger trace |
 | Application deployment | Local kind installation underway; no all-Ready/checkout claim yet | Add genuine runtime receipts after verification |
-| Steady upstream load | Build assets prepared, sustained result pending | [Local load generator](local-services/loadgen/) |
-| Prometheus/Grafana | Official chart92.7.0 and values prepared; integrated query/dashboard proof pending | [Local values](monitoring-local.values.yaml) |
-| Fluent Bit/Loki | Service/level configuration prepared; real query pending | [Configs](observability/config/) |
+| Steady upstream load | Corrected namespace/URL errors; latest synthetic registration returned HTTP502, sustained success not demonstrated | [Local load generator](local-services/loadgen/) |
+| Prometheus/Grafana | Prometheus returned all four focus targets UP=1 and real RED series; Grafana 3/3 Ready and health API database=ok; rendered dashboard still needs visual evidence | [Local values](monitoring-local.values.yaml) |
+| Fluent Bit/Loki | Real Fluent Bit to Loki Web query returned five lines labelled service=web and level=info | [Configs](observability/config/) |
 | Jaeger | Collector/backend configured; retrieved request trace pending | [Auxiliary chart](observability/) |
 | SLO/error budget | Written policy prepared, sustained measurement pending | [SLO](SLO.md) |
 | Slack | Rule/runbook prepared; actual firing/resolved delivery not demonstrated | [Runbook](runbook.md) |
-| Incident/postmortem | No incident result claimed | Record actual timeline, mitigation and recovery before finalizing |
+| Incident/postmortem | Local catalogue-loss drill recorded pending then firing alert; restoration/recovery receipts captured separately | Record actual timeline, mitigation and recovery before finalizing |
 
 ## Local image evidence
 
@@ -42,8 +42,8 @@ here. Build-root/pip notices and upstream npm/MongoDB deprecations were not supp
   This avoids deploying beyond existing capacity or an unauthorized paid resize.
 - Owner-approved independent configurations/drill preparation replace unavailable
   instructor starter files and instructor-led simulation. Disclose this deviation.
-- An own Robot Shop fork, successful shopping flow, four-service RED dashboard,
-  service/level log search, Jaeger retrieval, delivered Slack alert and actual
+- An own Robot Shop fork, successful shopping flow, four-service Grafana dashboard,
+  delivered Slack alert and actual
   incident/postmortem still need genuine evidence.
 - Payment gateway is simulated locally; never describe it as a real payment.
 
@@ -61,3 +61,5 @@ Submit the reviewed repository commit and this index with sanitized evidence.
 Confirm newly added files are uploaded before sending GitHub links. Exclude
 kubeconfigs, tokens, state, webhooks and private credentials. Prepared configuration
 or a running collector is not proof of end-to-end telemetry. No fabricated screenshots.
+
+Runtime receipts include initial failures as well as subsequent successes. See `evidence/runtime/jaeger-v3-catalogue-traces.ndjson`, `loki-web-info-query.json` and `prometheus-up.json`. No complete checkout, delivered Slack alert or successful fresh Trivy scan is claimed.

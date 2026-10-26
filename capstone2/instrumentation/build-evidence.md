@@ -22,3 +22,14 @@ Local image IDs from `docker image inspect`:
 | `capstone2-catalogue:local` | `sha256:3254cccd8010fb67e68d1722ccc6496e760632c7ea62cfd21824edbe6558f7b8` | 73585104 |
 
 These local IDs are not a claimed published registry digest. Integration into a complete Robot Shop environment and private registry publication were not performed by this build task.
+
+## Readiness correction, 2026-10-26
+
+Added `/ready` separately from `/health`: readiness returns 503 until the dependency connection flag is true and 200 afterward. `/health` retains its upstream liveness behavior. Images rebuilt from cached dependency layers; no registry download or package changes.
+
+Updated local IDs (supersede the image IDs above):
+
+- Cart: `sha256:b04e18ce689f1b3b319bedb8fdcd2bb9904d0ae8720515161d69a3e2e21c8795`
+- Catalogue: `sha256:8d44016a0e68fefde17fc525f6c96cb824b59628118a316051d9d85a7c9f7de6`
+
+Both hardened network-isolated smoke tests verified `/health` 200, `/ready` 503, RED metrics, and the preserved Cart counter. Evidence: `cart-readiness-smoke.json` and `catalogue-readiness-smoke.json`. Successful dependency-backed readiness remains a runtime integration check.

@@ -1,0 +1,187 @@
+{
+  "utc": "2026-10-26T19:37:54.767355+00:00",
+  "pods": [
+    {
+      "name": "cart-754564d6b9-68bm5",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "cart",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-cart:local",
+          "imageID": "sha256:5521eceff5612d4efad5b2b9901d46dbc4359c616bca539f5a0f889dfffc5deb"
+        }
+      ]
+    },
+    {
+      "name": "catalogue-f984778b9-zvsgt",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "catalogue",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-catalogue:local",
+          "imageID": "sha256:6fd2ed264be5f1414b5f43653c0027a78d74e17b0f20689dc967560408bf61ab"
+        }
+      ]
+    },
+    {
+      "name": "dispatch-67d66df546-fps6f",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "dispatch",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:7e63803d2a06df53549d0d089b88b56d242920fdcd35e68f7eb3568f60b33b00",
+          "imageID": "docker.io/robotshop/rs-dispatch@sha256:de81f1d07b021f24c1cc66fef6aa27f9a5456f08b0c081dfb4cc71027ff67ead"
+        }
+      ]
+    },
+    {
+      "name": "mongodb-8657d8667b-2tsd8",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "mongodb",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:621ddd7848a2327f471de8541d8b020d65a58a18a01429c0cc829f840917aba7",
+          "imageID": "docker.io/robotshop/rs-mongodb@sha256:119b545823cdce33a1d6cee87fdfed1cef82e680824ad0b49603be4aeb4e821e"
+        }
+      ]
+    },
+    {
+      "name": "mysql-65ffdc489f-t2g5f",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "mysql",
+          "ready": true,
+          "restarts": 1,
+          "image": "sha256:1a9332d91b6161f822552e2c9b3411b9ca75fad0280597ffe649e740bc5e369a",
+          "imageID": "docker.io/robotshop/rs-mysql-db@sha256:2355f9700d771f4326169d7d370ad1824d2d410876036f77342d9663d80f893b"
+        }
+      ]
+    },
+    {
+      "name": "payment-9fbfb8b54-lwhjp",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "payment",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-payment:local",
+          "imageID": "sha256:42db7a3d25e9b1520878b7401ebe26daacfefdd8d453c23c7ec15c580981ee29"
+        }
+      ]
+    },
+    {
+      "name": "rabbitmq-c4cc5c99c-jpzjx",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "rabbitmq",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:1031d41f3f1611f61f0fe9011e26201967f460f93f96f92d5be0e823d59e7541",
+          "imageID": "docker.io/library/import-2026-10-26@sha256:606d8c0d6b3c18d1da9afc53bc7cdb2a8d5486df91b5a9830e9e07626c9ae281"
+        }
+      ]
+    },
+    {
+      "name": "ratings-98c5b98bb-5cvxw",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "ratings",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:a1676b19d3f9142ab46185efe631d1dd9918bc79eadec73d95ee5274e998ed23",
+          "imageID": "docker.io/robotshop/rs-ratings@sha256:4899c686c249464783663342620425dc8c75a5d59ca55c247cf6aec62a5fff1a"
+        }
+      ]
+    },
+    {
+      "name": "redis-0",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "redis",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:071a0ebd94d6d099c5424bc21e70b474fb3291cf9562f709183624d2483a2763",
+          "imageID": "docker.io/library/import-2026-10-26@sha256:63d5174750e285bc3069c4519c53c8b6de6ebe70715140a6c9d21d6f04b77319"
+        }
+      ]
+    },
+    {
+      "name": "robot-shop-loadgen-corrected-2zxzf",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "loadgen",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-loadgen:local",
+          "imageID": "sha256:440bfe46e2a0239e186fe8e41d33c27b9cae556a8694f854dd473dab049bd2d3"
+        }
+      ]
+    },
+    {
+      "name": "robot-shop-loadgen-z2vmz",
+      "phase": "Failed",
+      "containers": [
+        {
+          "name": "loadgen",
+          "ready": false,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-loadgen:local",
+          "imageID": "sha256:440bfe46e2a0239e186fe8e41d33c27b9cae556a8694f854dd473dab049bd2d3"
+        }
+      ]
+    },
+    {
+      "name": "shipping-7c48b87957-czxjv",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "shipping",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:3bb300680fb6c3257ba84e8a65715ad621dab149ff5cfbbb27b33f913c52ee94",
+          "imageID": "docker.io/robotshop/rs-shipping@sha256:89753ab489193286402c9486379da63c18a21d697b4fbd41246b68aacabfc6d3"
+        }
+      ]
+    },
+    {
+      "name": "user-d75677447-m5fvn",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "user",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:8c1e369ddb3a21c7d2b66ab46d66d27ce3a6200d2abea1846fb841a5c5c45ad7",
+          "imageID": "docker.io/robotshop/rs-user@sha256:ea509182c180d20340a9427d8320f35085effdb4ed77b15275022d17bdd1fcf7"
+        }
+      ]
+    },
+    {
+      "name": "web-65cf476bd9-n2xfz",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "web",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-web:local",
+          "imageID": "sha256:756160d701ee34f51f43a6b84f20d5586f18e048f9b4d64abbf7cddec53a8ee6"
+        }
+      ]
+    }
+  ]
+}

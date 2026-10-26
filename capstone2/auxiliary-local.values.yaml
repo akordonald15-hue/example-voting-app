@@ -1,0 +1,2 @@
+# LOCAL ONLY: preloaded images, bounded rollout while old pulls terminate.
+localDemo: true

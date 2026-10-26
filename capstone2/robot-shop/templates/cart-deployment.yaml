@@ -26,7 +26,7 @@ spec:
           - {name: OTEL_TRACES_SAMPLER, value: always_on}
         ports:
         - containerPort: 8080
-        readinessProbe: {httpGet: {path: /health, port: 8080}, periodSeconds: 5, failureThreshold: 12}
+        readinessProbe: {httpGet: {path: /ready, port: 8080}, periodSeconds: 5, failureThreshold: 12}
         startupProbe: {tcpSocket: {port: 8080}, periodSeconds: 5, failureThreshold: 36}
         resources:
           limits:

@@ -1,0 +1,229 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "streams",
+    "result": [
+      {
+        "stream": {
+          "detected_level": "info",
+          "job": "robot-shop",
+          "level": "info",
+          "namespace": "robot-shop",
+          "service": "web",
+          "service_name": "web"
+        },
+        "values": [
+          [
+            "1793042726821933746",
+            "{\"source_file\":\"/var/log/pods/robot-shop_web-65cf476bd9-n2xfz_cf106c6f-c849-44ef-af1a-05af5525bc2b/web/0.log\",\"log\":\"{\\\"service\\\":\\\"web\\\",\\\"level\\\":\\\"info\\\",\\\"method\\\":\\\"GET\\\",\\\"status\\\":200}\",\"_p\":\"F\",\"stream\":\"stdout\",\"time\":\"2026-10-26T19:25:26.821357102Z\"}"
+          ],
+          [
+            "1793042696798449993",
+            "{\"source_file\":\"/var/log/pods/robot-shop_web-65cf476bd9-n2xfz_cf106c6f-c849-44ef-af1a-05af5525bc2b/web/0.log\",\"log\":\"{\\\"service\\\":\\\"web\\\",\\\"level\\\":\\\"info\\\",\\\"method\\\":\\\"GET\\\",\\\"status\\\":200}\",\"_p\":\"F\",\"stream\":\"stdout\",\"time\":\"2026-10-26T19:24:56.796452142Z\"}"
+          ],
+          [
+            "1793042666805939912",
+            "{\"source_file\":\"/var/log/pods/robot-shop_web-65cf476bd9-n2xfz_cf106c6f-c849-44ef-af1a-05af5525bc2b/web/0.log\",\"log\":\"{\\\"service\\\":\\\"web\\\",\\\"level\\\":\\\"info\\\",\\\"method\\\":\\\"GET\\\",\\\"status\\\":200}\",\"_p\":\"F\",\"stream\":\"stdout\",\"time\":\"2026-10-26T19:24:26.805356318Z\"}"
+          ],
+          [
+            "1793042636908354043",
+            "{\"source_file\":\"/var/log/pods/robot-shop_web-65cf476bd9-n2xfz_cf106c6f-c849-44ef-af1a-05af5525bc2b/web/0.log\",\"log\":\"{\\\"service\\\":\\\"web\\\",\\\"level\\\":\\\"info\\\",\\\"method\\\":\\\"GET\\\",\\\"status\\\":200}\",\"_p\":\"F\",\"stream\":\"stdout\",\"time\":\"2026-10-26T19:23:56.907613307Z\"}"
+          ],
+          [
+            "1793042606923011302",
+            "{\"source_file\":\"/var/log/pods/robot-shop_web-65cf476bd9-n2xfz_cf106c6f-c849-44ef-af1a-05af5525bc2b/web/0.log\",\"log\":\"{\\\"service\\\":\\\"web\\\",\\\"level\\\":\\\"info\\\",\\\"method\\\":\\\"GET\\\",\\\"status\\\":200}\",\"_p\":\"F\",\"stream\":\"stdout\",\"time\":\"2026-10-26T19:23:26.922284328Z\"}"
+          ]
+        ]
+      }
+    ],
+    "stats": {
+      "summary": {
+        "bytesProcessedPerSecond": 2269,
+        "linesProcessedPerSecond": 8,
+        "totalBytesProcessed": 5895,
+        "totalLinesProcessed": 22,
+        "execTime": 2.597969,
+        "queueTime": 0.001065,
+        "subqueries": 0,
+        "totalEntriesReturned": 5,
+        "splits": 1,
+        "shards": 1,
+        "totalPostFilterLines": 22,
+        "totalStructuredMetadataBytesProcessed": 176
+      },
+      "querier": {
+        "store": {
+          "totalChunksRef": 0,
+          "totalChunksDownloaded": 0,
+          "chunksDownloadTime": 0,
+          "queryReferencedStructuredMetadata": false,
+          "queryUsedV2Engine": false,
+          "chunk": {
+            "headChunkBytes": 0,
+            "headChunkLines": 0,
+            "decompressedBytes": 0,
+            "decompressedLines": 0,
+            "compressedBytes": 0,
+            "totalDuplicates": 0,
+            "postFilterLines": 0,
+            "headChunkStructuredMetadataBytes": 0,
+            "decompressedStructuredMetadataBytes": 0
+          },
+          "chunkRefsFetchTime": 0,
+          "congestionControlLatency": 0,
+          "pipelineWrapperFilteredLines": 0,
+          "dataobj": {
+            "prePredicateDecompressedRows": 0,
+            "prePredicateDecompressedBytes": 0,
+            "prePredicateDecompressedStructuredMetadataBytes": 0,
+            "postPredicateRows": 0,
+            "postPredicateDecompressedBytes": 0,
+            "postPredicateStructuredMetadataBytes": 0,
+            "postFilterRows": 0,
+            "pagesScanned": 0,
+            "pagesDownloaded": 0,
+            "pagesDownloadedBytes": 0,
+            "pageBatches": 0,
+            "totalRowsAvailable": 0,
+            "totalPageDownloadTime": 0
+          }
+        },
+        "querierExecTime": 1.795645
+      },
+      "ingester": {
+        "totalReached": 1,
+        "totalChunksMatched": 1,
+        "totalBatches": 1,
+        "totalLinesSent": 5,
+        "store": {
+          "totalChunksRef": 0,
+          "totalChunksDownloaded": 0,
+          "chunksDownloadTime": 0,
+          "queryReferencedStructuredMetadata": false,
+          "queryUsedV2Engine": false,
+          "chunk": {
+            "headChunkBytes": 5895,
+            "headChunkLines": 22,
+            "decompressedBytes": 0,
+            "decompressedLines": 0,
+            "compressedBytes": 0,
+            "totalDuplicates": 0,
+            "postFilterLines": 22,
+            "headChunkStructuredMetadataBytes": 176,
+            "decompressedStructuredMetadataBytes": 0
+          },
+          "chunkRefsFetchTime": 192561675,
+          "congestionControlLatency": 0,
+          "pipelineWrapperFilteredLines": 0,
+          "dataobj": {
+            "prePredicateDecompressedRows": 0,
+            "prePredicateDecompressedBytes": 0,
+            "prePredicateDecompressedStructuredMetadataBytes": 0,
+            "postPredicateRows": 0,
+            "postPredicateDecompressedBytes": 0,
+            "postPredicateStructuredMetadataBytes": 0,
+            "postFilterRows": 0,
+            "pagesScanned": 0,
+            "pagesDownloaded": 0,
+            "pagesDownloadedBytes": 0,
+            "pageBatches": 0,
+            "totalRowsAvailable": 0,
+            "totalPageDownloadTime": 0
+          }
+        },
+        "recvWaitTime": 0.291734
+      },
+      "cache": {
+        "chunk": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "index": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "result": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "statsResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "volumeResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "seriesResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "labelResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "instantMetricResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        }
+      },
+      "index": {
+        "totalChunks": 0,
+        "postFilterChunks": 0,
+        "shardsDuration": 0,
+        "usedBloomFilters": false,
+        "totalStreams": 0,
+        "chunkRefsLookupTime": 0,
+        "bloomFilterTime": 0
+      }
+    }
+  }
+}

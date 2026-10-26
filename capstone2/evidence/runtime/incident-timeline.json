@@ -1,0 +1,18 @@
+[
+  {
+    "utc": "2026-10-26T19:33:40.347348+00:00",
+    "event": "Local catalogue-only drill starts; no database or AWS changes"
+  },
+  {
+    "utc": "2026-10-26T19:33:41.680413+00:00",
+    "event": "Catalogue scaled to zero"
+  },
+  {
+    "utc": "2026-10-26T19:36:20.433774+00:00",
+    "event": "Catalogue restored to one replica"
+  },
+  {
+    "utc": "2026-10-26T19:37:42.636992+00:00",
+    "event": "Readiness restored; inspect probe and alert evidence"
+  }
+]

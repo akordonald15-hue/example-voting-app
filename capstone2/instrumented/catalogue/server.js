@@ -61,6 +61,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/ready', (req, res) => { res.status(mongoConnected ? 200 : 503).json({ ready: mongoConnected }); });
+
 app.get('/health', (req, res) => {
     var stat = {
         app: 'OK',

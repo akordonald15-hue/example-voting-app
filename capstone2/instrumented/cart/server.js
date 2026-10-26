@@ -71,6 +71,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/ready', (req, res) => { res.status(redisConnected ? 200 : 503).json({ ready: redisConnected }); });
+
 app.get('/health', (req, res) => {
     var stat = {
         app: 'OK',

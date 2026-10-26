@@ -1,0 +1,131 @@
+{
+    "apiVersion": "batch/v1",
+    "kind": "Job",
+    "metadata": {
+        "creationTimestamp": "2026-10-26T19:25:18Z",
+        "generation": 1,
+        "labels": {
+            "batch.kubernetes.io/controller-uid": "68038c67-4eb4-47a7-b0c5-6d0db45676fd",
+            "batch.kubernetes.io/job-name": "robot-shop-loadgen",
+            "controller-uid": "68038c67-4eb4-47a7-b0c5-6d0db45676fd",
+            "job-name": "robot-shop-loadgen",
+            "service": "loadgen"
+        },
+        "name": "robot-shop-loadgen",
+        "namespace": "default",
+        "resourceVersion": "13793",
+        "uid": "68038c67-4eb4-47a7-b0c5-6d0db45676fd"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 360,
+        "backoffLimit": 0,
+        "completionMode": "NonIndexed",
+        "completions": 1,
+        "manualSelector": false,
+        "parallelism": 1,
+        "podReplacementPolicy": "TerminatingOrFailed",
+        "selector": {
+            "matchLabels": {
+                "batch.kubernetes.io/controller-uid": "68038c67-4eb4-47a7-b0c5-6d0db45676fd"
+            }
+        },
+        "suspend": false,
+        "template": {
+            "metadata": {
+                "labels": {
+                    "batch.kubernetes.io/controller-uid": "68038c67-4eb4-47a7-b0c5-6d0db45676fd",
+                    "batch.kubernetes.io/job-name": "robot-shop-loadgen",
+                    "controller-uid": "68038c67-4eb4-47a7-b0c5-6d0db45676fd",
+                    "job-name": "robot-shop-loadgen",
+                    "service": "loadgen"
+                }
+            },
+            "spec": {
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "HOST",
+                                "value": "http://web:8080/"
+                            },
+                            {
+                                "name": "NUM_CLIENTS",
+                                "value": "1"
+                            },
+                            {
+                                "name": "RUN_TIME",
+                                "value": "5m"
+                            },
+                            {
+                                "name": "ERROR",
+                                "value": "0"
+                            },
+                            {
+                                "name": "SILENT",
+                                "value": "0"
+                            }
+                        ],
+                        "image": "docker.io/library/capstone2-loadgen:local",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "loadgen",
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "50m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/tmp",
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 1000,
+                    "runAsNonRoot": true,
+                    "runAsUser": 1000,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "terminationGracePeriodSeconds": 30,
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "64Mi"
+                        },
+                        "name": "tmp"
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "active": 1,
+        "ready": 1,
+        "startTime": "2026-10-26T19:25:18Z",
+        "terminating": 0,
+        "uncountedTerminatedPods": {}
+    }
+}

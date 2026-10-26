@@ -1,0 +1,161 @@
+{
+  "utc": "2026-10-26T18:38:42.274040+00:00",
+  "pods": [
+    {
+      "name": "blackbox-86ccbcb69b-f992g",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "blackbox",
+          "ready": false,
+          "restarts": 0,
+          "image": "prom/blackbox-exporter@sha256:ea1c7aa3ef3f307cd03e85f34abb604478ccb90b567fc690da0cd9776da76b13",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "fluent-bit-7jd5h",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "fluent-bit",
+          "ready": false,
+          "restarts": 0,
+          "image": "fluent/fluent-bit@sha256:2740f387f6e68fab66d28e4fa6a853387b9cab6ffb4cb78958f69bba4eb0e7b4",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "jaeger-56c4454db6-2sv48",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "jaeger",
+          "ready": false,
+          "restarts": 0,
+          "image": "jaegertracing/jaeger@sha256:836b967b5abcf1f7758066aa6b348619267a2f1459f72d472840570f9bd88a17",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "loki-7c46fc8696-4fcxv",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "loki",
+          "ready": false,
+          "restarts": 0,
+          "image": "grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-grafana-54dbff44c-l7x6n",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "grafana",
+          "ready": false,
+          "restarts": 0,
+          "image": "docker.io/grafana/grafana:13.2.4-distroless",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        },
+        {
+          "name": "grafana-sc-dashboard",
+          "ready": false,
+          "restarts": 0,
+          "image": "quay.io/kiwigrid/k8s-sidecar:2.14.1",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        },
+        {
+          "name": "grafana-sc-datasources",
+          "ready": false,
+          "restarts": 0,
+          "image": "quay.io/kiwigrid/k8s-sidecar:2.14.1",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-kube-state-metrics-799b597d4c-fmj5w",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "kube-state-metrics",
+          "ready": false,
+          "restarts": 0,
+          "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-operator-6bcfc49748-5nv5p",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "kube-prometheus-stack",
+          "ready": false,
+          "restarts": 0,
+          "image": "quay.io/prometheus-operator/prometheus-operator:v0.94.1",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-operator-7f6cfb8f79-6nsrw",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "kube-prometheus-stack",
+          "ready": false,
+          "restarts": 0,
+          "image": "quay.io/prometheus-operator/prometheus-operator:v0.94.1",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-prometheus-node-exporter-2qkrs",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "node-exporter",
+          "ready": false,
+          "restarts": 0,
+          "image": "quay.io/prometheus/node-exporter:v1.12.1-distroless",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    },
+    {
+      "name": "otel-6fb6746c75-zxr2c",
+      "phase": "Pending",
+      "containers": [
+        {
+          "name": "otel",
+          "ready": false,
+          "restarts": 0,
+          "image": "otel/opentelemetry-collector-contrib@sha256:7f22d2a6748110ffb6a59bc0df448bccbf501cdb667d610ede4c61d3863d5849",
+          "imageID": "",
+          "waiting": "ContainerCreating"
+        }
+      ]
+    }
+  ]
+}

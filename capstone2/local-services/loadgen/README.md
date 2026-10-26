@@ -1,6 +1,6 @@
 # Real upstream Locust generator
 
-Uses the copied upstream `load-gen/robot-shop.py` and `entrypoint.sh` unchanged. No Instana import exists in these files. Python 3.12 Debian slim replaces Alpine to avoid carrying the previously identified musl package; this does not establish a clean image scan. Actual pinned-base inspection returned Python 3.12.14 and glibc 2.41.
+Uses the copied upstream task logic with one explicit adaptation: each load user registers a fresh synthetic account using an in-memory random password, instead of relying on upstream hardcoded sample accounts. Credentials are never printed or persisted by this adapter. The upstream source is retained separately for provenance; `entrypoint.sh` is unchanged. No Instana import exists in these files. Python 3.12 Debian slim replaces Alpine to avoid carrying the previously identified musl package; this does not establish a clean image scan. Actual pinned-base inspection returned Python 3.12.14 and glibc 2.41.
 
 `dependency-resolution.json` records the actual PyPI wheel resolution. Regenerate `../../loadgen-requirements.lock` with `python lock_from_report.py`, review it, then build from the repository root:
 

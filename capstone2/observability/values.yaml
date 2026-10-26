@@ -1,34 +1,39 @@
-# Image digests must be resolved/reviewed before use. Empty pins deliberately block rendering.
+# Exact pins remain mandatory. localDemo is for preloaded kind images only.
 components:
   blackbox:
-    repository: prom/blackbox-exporter
+    repository: docker.io/prom/blackbox-exporter
     version: v0.29.1
     digest: ''
     port: 9115
-    args: [--config.file=/config/blackbox.yaml]
+    args:
+    - --config.file=/config/blackbox.yaml
     memory: 64Mi
   loki:
-    repository: grafana/loki
-    version: '3.7.9'
+    repository: docker.io/grafana/loki
+    version: 3.7.9
     digest: ''
     port: 3100
-    args: [-config.file=/config/loki.yaml]
+    args:
+    - -config.file=/config/loki.yaml
     memory: 512Mi
   otel:
-    repository: otel/opentelemetry-collector-contrib
-    version: '0.163.2'
+    repository: docker.io/otel/opentelemetry-collector-contrib
+    version: 0.163.2
     digest: ''
     port: 4318
-    args: [--config=/config/otel.yaml]
+    args:
+    - --config=/config/otel.yaml
     memory: 128Mi
   jaeger:
-    repository: jaegertracing/jaeger
-    version: '2.22.0'
+    repository: docker.io/jaegertracing/jaeger
+    version: 2.22.0
     digest: ''
     port: 16686
-    args: [--config=/config/jaeger.yaml]
+    args:
+    - --config=/config/jaeger.yaml
     memory: 256Mi
 fluentbit:
   repository: fluent/fluent-bit
-  version: '5.1.5'
+  version: 5.1.5
   digest: ''
+localDemo: false

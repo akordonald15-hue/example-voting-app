@@ -31,7 +31,7 @@ docker build -t capstone2-web:local capstone2/local-services/web
 docker build -t capstone2-payment:local capstone2/local-services/payment
 docker build -t capstone2-cart:local capstone2/instrumented/cart
 docker build -t capstone2-catalogue:local capstone2/instrumented/catalogue
-docker build -t capstone2-loadgen:local capstone2/local-services/loadgen
+docker build -f capstone2/loadgen.Dockerfile -t capstone2-loadgen:local capstone2
 ```
 
 Save/import those five images using Docker's image archive and kind's containerd:
@@ -62,7 +62,7 @@ contract; actual Slack delivery remains incomplete.
 
 ```powershell
 helm --kubeconfig $cfg install monitoring <downloaded-kube-prometheus-stack-92.7.0.tgz> -n observability -f capstone2/monitoring-local.values.yaml --wait --timeout 8m
-helm --kubeconfig $cfg install capstone-observability capstone2/observability -n observability -f capstone2/images.resolved.yaml --wait --timeout 8m
+helm --kubeconfig $cfg install capstone-observability capstone2/observability -n observability -f capstone2/images.resolved.yaml -f capstone2/auxiliary-local.values.yaml --wait --timeout 8m
 helm --kubeconfig $cfg install robot-shop capstone2/robot-shop -n robot-shop -f capstone2/robot-images.resolved.yaml -f capstone2/local-demo.values.yaml --wait --timeout 8m
 ```
 
@@ -118,3 +118,26 @@ the completed rollback fixture. No cleanup that deletes databases or PVCs is
 authorized by this runbook; retain them pending explicit owner cleanup approval.
 Record remaining local resource consumption and never describe a failed/partial
 installation as a completed observability demonstration.
+
+Local image-import caveat: digest-only Docker archives require `ctr images import --digests` and canonical registry aliases. Keep generated import aliases: CRI may retain them internally. No image/alias removal is part of this procedure. The lab kubelet was configured for three parallel image pulls; that change was local only.
+
+## Reliable local API access and current limitations
+
+When the host loopback API intermittently times out, `collect_kind.py` queries
+the explicitly named local kind node through `docker exec`, validates its node
+identity and saves sanitized Pod/Prometheus receipts. It never uses an AWS context.
+
+`python capstone2/incident_kind.py --execute-local-drill` is a local-only, bounded
+catalogue replica-loss drill. It requires a healthy availability baseline and
+restores the captured one-replica configuration in `finally`. Review resulting
+probe and alert receipts before asserting recovery or notification delivery.
+
+The initial load Job was accidentally created in `default`; the corrected chart
+now includes the release namespace explicitly. A second URL issue produced a
+double slash and HTTP404; the HOST value now has no trailing slash. A subsequent
+registration attempt returned HTTP502. Retain these failures; do not claim a
+successful steady shopping workload until a later result verifies it.
+
+Grafana required a bounded startup probe on this constrained workstation. Local
+operator cache alias failure was corrected to the already-cached upstream tag.
+The local values preserve those adjustments; default deployment values remain separate.

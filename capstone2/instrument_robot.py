@@ -48,6 +48,8 @@ def main():
         (destination / "package.json").write_text(json.dumps(package, indent=2) + "\n")
         text = (source / "server.js").read_text().replace("require('@instana/collector')", "require('./telemetry')")
         text = re.sub(r'\binstana\b', 'telemetry', text)
+        dependency = 'redisConnected' if role == 'cart' else 'mongoConnected'
+        text = text.replace("app.get('/health', (req, res) => {", "app.get('/ready', (req, res) => { res.status(" + dependency + " ? 200 : 503).json({ ready: " + dependency + " }); });\n\napp.get('/health', (req, res) => {")
         if role == 'cart':
             text = text.replace("const request = require('request');", "// Native fetch replaces the unmaintained request/form-data dependency.\nconst request = (url, callback) => { fetch(url).then(async response => callback(null, { statusCode: response.status }, await response.text())).catch(error => callback(error)); };")
         text = text.replace('const app = express();', "const app = express();\nconst red = require('./red.cjs').createRedMetrics('" + role + "');\napp.use((req, res, next) => {\n  if (req.path === '/metrics') return next();\n  return red.middleware(req, res, next);\n});")

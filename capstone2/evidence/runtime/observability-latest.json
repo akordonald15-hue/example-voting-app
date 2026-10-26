@@ -1,0 +1,156 @@
+{
+  "utc": "2026-10-26T19:37:55.447260+00:00",
+  "pods": [
+    {
+      "name": "blackbox-79f6cf79fb-ph2h2",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "blackbox",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:e6f02b1a6c427e2a771fb33b42cb167dde3e5e8b3625e55e55aa20aaa018946d",
+          "imageID": "docker.io/library/import-2026-10-26@sha256:ea1c7aa3ef3f307cd03e85f34abb604478ccb90b567fc690da0cd9776da76b13"
+        }
+      ]
+    },
+    {
+      "name": "fluent-bit-7jd5h",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "fluent-bit",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:71413ebbeb88cb4f3582aacbdbf02c61276de6fd6b5b1bb88c06eb24404638ac",
+          "imageID": "docker.io/fluent/fluent-bit@sha256:2740f387f6e68fab66d28e4fa6a853387b9cab6ffb4cb78958f69bba4eb0e7b4"
+        }
+      ]
+    },
+    {
+      "name": "jaeger-5f588d56cb-dbp8z",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "jaeger",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:ec6830add7b6b108e619a985cfd05fb36a027ce3800fbf58c35b839c395a0904",
+          "imageID": "docker.io/jaegertracing/jaeger@sha256:836b967b5abcf1f7758066aa6b348619267a2f1459f72d472840570f9bd88a17"
+        }
+      ]
+    },
+    {
+      "name": "loki-86f86bc46-cstc7",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "loki",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:5d47ead9b695cb22fb4851f09efd40ffd41db92278d847bdfafc25f9c5d654e7",
+          "imageID": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-grafana-69469db474-666vm",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "grafana",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/grafana/grafana:13.2.4-distroless",
+          "imageID": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35"
+        },
+        {
+          "name": "grafana-sc-dashboard",
+          "ready": true,
+          "restarts": 0,
+          "image": "quay.io/kiwigrid/k8s-sidecar:2.14.1",
+          "imageID": "quay.io/kiwigrid/k8s-sidecar@sha256:092dbe0c335fba9af414a27630ca68f34df6185784fa847d9954187e69dbfdd7"
+        },
+        {
+          "name": "grafana-sc-datasources",
+          "ready": true,
+          "restarts": 0,
+          "image": "quay.io/kiwigrid/k8s-sidecar:2.14.1",
+          "imageID": "quay.io/kiwigrid/k8s-sidecar@sha256:092dbe0c335fba9af414a27630ca68f34df6185784fa847d9954187e69dbfdd7"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-kube-state-metrics-799b597d4c-fmj5w",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "kube-state-metrics",
+          "ready": true,
+          "restarts": 5,
+          "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0",
+          "imageID": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-operator-69d8dfc8b6-j2tkt",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "kube-prometheus-stack",
+          "ready": true,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-prometheus-operator:local",
+          "imageID": "quay.io/prometheus-operator/prometheus-operator@sha256:7c88d4e7bae63bd8d0f8da986054337c23b4472fa8d3c6817f5bc4b8407a2d6a"
+        }
+      ]
+    },
+    {
+      "name": "monitoring-prometheus-node-exporter-2qkrs",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "node-exporter",
+          "ready": true,
+          "restarts": 2,
+          "image": "quay.io/prometheus/node-exporter:v1.12.1-distroless",
+          "imageID": "quay.io/prometheus/node-exporter@sha256:8c9bac11973b94b59be88d6e11fee4429aa743c8846cdc75d65b18db33f6a106"
+        }
+      ]
+    },
+    {
+      "name": "otel-579848cfdf-c66l8",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "otel",
+          "ready": true,
+          "restarts": 0,
+          "image": "sha256:a64fa52ad3b55378bb62d8642439aaf0ec3abf45a8ddc1ac02bac31eea7a6565",
+          "imageID": "docker.io/library/import-2026-10-26@sha256:7f22d2a6748110ffb6a59bc0df448bccbf501cdb667d610ede4c61d3863d5849"
+        }
+      ]
+    },
+    {
+      "name": "prometheus-monitoring-prometheus-0",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "config-reloader",
+          "ready": true,
+          "restarts": 0,
+          "image": "quay.io/prometheus-operator/prometheus-config-reloader:v0.94.1",
+          "imageID": "quay.io/prometheus-operator/prometheus-config-reloader@sha256:06b52bd4dbe3ed6dd5905aadaf8b9987d9da4c31d37bb86deaadae68cee2d26b"
+        },
+        {
+          "name": "prometheus",
+          "ready": true,
+          "restarts": 1,
+          "image": "quay.io/prometheus/prometheus:v3.15.0-distroless",
+          "imageID": "quay.io/prometheus/prometheus@sha256:b2a413d5a03ea6a76782a508d1c7947440bba3b973931a25676e278431891b01"
+        }
+      ]
+    }
+  ]
+}

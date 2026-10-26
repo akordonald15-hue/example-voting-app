@@ -1,0 +1,45 @@
+{
+  "probe": {
+    "status": "success",
+    "data": {
+      "resultType": "vector",
+      "result": [
+        {
+          "metric": {
+            "__name__": "probe_success",
+            "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+            "job": "robot-shop-availability"
+          },
+          "value": [
+            1793043283.596,
+            "0"
+          ]
+        }
+      ]
+    }
+  },
+  "alerts": {
+    "status": "success",
+    "data": {
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "RobotShopUnavailable",
+            "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+            "job": "robot-shop-availability",
+            "service": "robot-shop",
+            "severity": "page"
+          },
+          "annotations": {
+            "description": "Investigate the probe, catalogue and MongoDB; freeze lab changes. No automatic rollback.",
+            "runbook_url": "https://github.com/akordonald15-hue/example-voting-app/blob/main/capstone2/runbook.md",
+            "summary": "Robot Shop catalogue transaction unavailable"
+          },
+          "state": "pending",
+          "activeAt": "2026-10-26T19:34:09.801463211Z",
+          "value": "0e+00"
+        }
+      ]
+    }
+  }
+}

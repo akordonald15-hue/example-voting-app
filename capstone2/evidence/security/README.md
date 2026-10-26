@@ -20,3 +20,13 @@ and contain musl **1.2.6-r3**. Legacy supporting upstream images (including MySQ
 Retry scanning only with a valid complete vulnerability database and sufficient
 local memory. Preserve scanner warnings/errors; do not suppress vulnerabilities
 or treat unavailable database results as clean.
+
+## Owner-approved bounded retry
+
+Seven confirmed inactive application/sleep-only containers were stopped temporarily;
+all database/broker containers and kind remained running. A retry with a 1536MiB
+scanner limit exceeded its external 330-second bound without a report. Its scanner
+container was stopped and retained. All seven original container IDs were restarted
+and running-state restoration verified in `finally`; no container/image/network/
+volume was removed. See [receipt](bounded-retry.json). No further cleanup scope or
+scan retry was attempted. Vulnerability counts remain **unknown**, not zero.

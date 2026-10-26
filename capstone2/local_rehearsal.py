@@ -8,7 +8,10 @@ import datetime
 import json
 from pathlib import Path
 import subprocess
+import socket
 import time
+import urllib.parse
+import urllib.request
 
 
 def main():
@@ -53,8 +56,44 @@ def main():
     for service in ('web', 'catalogue', 'cart', 'payment'):
         save(service + '-metrics.json', fetch('http://' + service + ':8080/metrics'))
     save('catalogue-products.json', fetch('http://web:8080/api/catalogue/products'))
-    save('jaeger-services.json', fetch('http://jaeger.observability:16686/api/services'))
-    save('jaeger-catalogue-traces.json', fetch('http://jaeger.observability:16686/api/traces?service=catalogue&limit=5'))
+    # Query through a temporary loopback API tunnel, without broadening policies.
+    # Jaeger 2.22 uses the stable v3 HTTP API; v1 internal endpoints return 404.
+    candidates = json.loads(command(['get', 'pods', '-n', 'observability', '-l', 'app=jaeger', '-o', 'json']))['items']
+    ready = [p for p in candidates if not p['metadata'].get('deletionTimestamp') and
+             any(c['type'] == 'Ready' and c['status'] == 'True' for c in p['status'].get('conditions', []))]
+    if len(ready) != 1:
+        raise SystemExit('STOP: exactly one Ready Jaeger Pod required for trace evidence')
+    with socket.socket() as reservation:
+        reservation.bind(('127.0.0.1', 0))
+        port = reservation.getsockname()[1]
+    tunnel = subprocess.Popen(prefix + ['port-forward', '-n', 'observability',
+        'pod/' + ready[0]['metadata']['name'], str(port) + ':16686', '--address', '127.0.0.1'],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    try:
+        for attempt in range(30):
+            try:
+                with socket.create_connection(('127.0.0.1', port), timeout=.2):
+                    break
+            except OSError:
+                time.sleep(.2)
+        else:
+            raise RuntimeError('Jaeger loopback tunnel unavailable')
+        now = datetime.datetime.now(datetime.timezone.utc)
+        query = urllib.parse.urlencode({'query.service_name': 'catalogue',
+            'query.start_time_min': (now - datetime.timedelta(minutes=20)).isoformat(),
+            'query.start_time_max': now.isoformat(), 'query.search_depth': '5'})
+        for name, path in [('jaeger-v3-services.json', '/api/v3/services'),
+                           ('jaeger-v3-catalogue-traces.json', '/api/v3/traces?' + query)]:
+            with urllib.request.urlopen('http://127.0.0.1:' + str(port) + path, timeout=20) as response:
+                lines = response.read().decode().splitlines()
+                save(name, [json.loads(line) for line in lines if line.strip()])
+    finally:
+        tunnel.terminate()
+        try:
+            tunnel.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            tunnel.kill()
+            tunnel.wait(timeout=5)
     if not args.incident:
         return
     deployment = json.loads(command(['get', 'deployment', 'catalogue', '-n', 'robot-shop', '-o', 'json']))

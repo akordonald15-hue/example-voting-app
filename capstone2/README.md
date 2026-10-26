@@ -5,7 +5,8 @@ October 27, 2026, 12:00 WAT (11:00 UTC).
 
 Local builds and smoke tests are complete for Web, Catalogue, Cart and Payment.
 Local kind installation is underway; no all-Ready, complete checkout, retrieved
-Jaeger trace, delivered Slack alert or successful incident drill is claimed yet.
+successful checkout trace, delivered Slack alert or successful incident drill is claimed yet.
+A genuine Catalogue HTTP `/health` trace was retrieved from Jaeger v3; see SUBMISSION.
 Earlier preparation notes below are historical and must not override this checkpoint.
 
 The demonstration reuses `kind-capstone-rollback-lab`, isolated in `robot-shop`

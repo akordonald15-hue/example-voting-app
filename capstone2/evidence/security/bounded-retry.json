@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-26T18:44:51.225336+00:00",
+  "stoppedCount": 7,
+  "restored": true,
+  "sameContainerIDs": true,
+  "allPreviouslyRunningContainersRunning": true,
+  "scanResults": [
+    {
+      "role": "web",
+      "status": "external-timeout",
+      "container": "capstone2-trivy-web-1793040312"
+    }
+  ],
+  "dataStoresAndKindStopped": false,
+  "containersImagesNetworksVolumesRemoved": false
+}

@@ -1,39 +1,39 @@
 [
   {
-    "name": "cart-56bf6d4785-s6qd2",
+    "name": "cart-5b89bc46b4-k6kvh",
     "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:56Z",
+        "lastTransitionTime": "2026-10-26T18:29:45Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodReadyToStartContainers"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
+        "lastTransitionTime": "2026-10-26T18:29:42Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Initialized"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:27:17Z",
+        "lastTransitionTime": "2026-10-26T18:30:02Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Ready"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:27:17Z",
+        "lastTransitionTime": "2026-10-26T18:30:02Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "ContainersReady"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
+        "lastTransitionTime": "2026-10-26T18:29:42Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodScheduled"
@@ -50,40 +50,40 @@
     ]
   },
   {
-    "name": "catalogue-8569dd49b9-d52j2",
+    "name": "catalogue-6fb8f856d8-kdjw7",
     "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:56Z",
+        "lastTransitionTime": "2026-10-26T18:29:45Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodReadyToStartContainers"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
+        "lastTransitionTime": "2026-10-26T18:29:42Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Initialized"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:27:22Z",
+        "lastTransitionTime": "2026-10-26T18:29:58Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Ready"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:27:22Z",
+        "lastTransitionTime": "2026-10-26T18:29:58Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "ContainersReady"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
+        "lastTransitionTime": "2026-10-26T18:29:42Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodScheduled"
@@ -258,44 +258,40 @@
     ]
   },
   {
-    "name": "payment-545d97f6d-mnmf6",
-    "phase": "Pending",
+    "name": "payment-9fbfb8b54-lwhjp",
+    "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:18:33Z",
+        "lastTransitionTime": "2026-10-26T18:29:45Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodReadyToStartContainers"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:09:36Z",
+        "lastTransitionTime": "2026-10-26T18:29:43Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Initialized"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:09:36Z",
-        "message": "containers with unready status: [payment]",
+        "lastTransitionTime": "2026-10-26T18:29:58Z",
         "observedGeneration": 1,
-        "reason": "ContainersNotReady",
-        "status": "False",
+        "status": "True",
         "type": "Ready"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:09:36Z",
-        "message": "containers with unready status: [payment]",
+        "lastTransitionTime": "2026-10-26T18:29:58Z",
         "observedGeneration": 1,
-        "reason": "ContainersNotReady",
-        "status": "False",
+        "status": "True",
         "type": "ContainersReady"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:09:36Z",
+        "lastTransitionTime": "2026-10-26T18:29:43Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodScheduled"
@@ -304,70 +300,16 @@
     "containers": [
       {
         "name": "payment",
-        "ready": false,
+        "ready": true,
         "restarts": 0,
-        "image": "capstone2-payment:local",
-        "imageID": ""
-      }
-    ]
-  },
-  {
-    "name": "payment-8556d47cc5-xpbpp",
-    "phase": "Pending",
-    "conditions": [
-      {
-        "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:55Z",
-        "observedGeneration": 1,
-        "status": "True",
-        "type": "PodReadyToStartContainers"
-      },
-      {
-        "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
-        "observedGeneration": 1,
-        "status": "True",
-        "type": "Initialized"
-      },
-      {
-        "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
-        "message": "containers with unready status: [payment]",
-        "observedGeneration": 1,
-        "reason": "ContainersNotReady",
-        "status": "False",
-        "type": "Ready"
-      },
-      {
-        "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
-        "message": "containers with unready status: [payment]",
-        "observedGeneration": 1,
-        "reason": "ContainersNotReady",
-        "status": "False",
-        "type": "ContainersReady"
-      },
-      {
-        "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
-        "observedGeneration": 1,
-        "status": "True",
-        "type": "PodScheduled"
-      }
-    ],
-    "containers": [
-      {
-        "name": "payment",
-        "ready": false,
-        "restarts": 0,
-        "image": "capstone2-payment:local",
-        "imageID": ""
+        "image": "docker.io/library/capstone2-payment:local",
+        "imageID": "sha256:42db7a3d25e9b1520878b7401ebe26daacfefdd8d453c23c7ec15c580981ee29"
       }
     ]
   },
   {
     "name": "rabbitmq-c4cc5c99c-jpzjx",
-    "phase": "Pending",
+    "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
@@ -414,8 +356,8 @@
         "name": "rabbitmq",
         "ready": false,
         "restarts": 0,
-        "image": "rabbitmq@sha256:606d8c0d6b3c18d1da9afc53bc7cdb2a8d5486df91b5a9830e9e07626c9ae281",
-        "imageID": ""
+        "image": "sha256:1031d41f3f1611f61f0fe9011e26201967f460f93f96f92d5be0e823d59e7541",
+        "imageID": "docker.io/library/import-2026-10-26@sha256:606d8c0d6b3c18d1da9afc53bc7cdb2a8d5486df91b5a9830e9e07626c9ae281"
       }
     ]
   },
@@ -529,7 +471,7 @@
   },
   {
     "name": "shipping-7c48b87957-czxjv",
-    "phase": "Pending",
+    "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
@@ -576,14 +518,14 @@
         "name": "shipping",
         "ready": false,
         "restarts": 0,
-        "image": "robotshop/rs-shipping@sha256:89753ab489193286402c9486379da63c18a21d697b4fbd41246b68aacabfc6d3",
-        "imageID": ""
+        "image": "sha256:3bb300680fb6c3257ba84e8a65715ad621dab149ff5cfbbb27b33f913c52ee94",
+        "imageID": "docker.io/robotshop/rs-shipping@sha256:89753ab489193286402c9486379da63c18a21d697b4fbd41246b68aacabfc6d3"
       }
     ]
   },
   {
     "name": "user-d75677447-m5fvn",
-    "phase": "Pending",
+    "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
@@ -630,46 +572,46 @@
         "name": "user",
         "ready": false,
         "restarts": 0,
-        "image": "robotshop/rs-user@sha256:ea509182c180d20340a9427d8320f35085effdb4ed77b15275022d17bdd1fcf7",
-        "imageID": ""
+        "image": "sha256:8c1e369ddb3a21c7d2b66ab46d66d27ce3a6200d2abea1846fb841a5c5c45ad7",
+        "imageID": "docker.io/robotshop/rs-user@sha256:ea509182c180d20340a9427d8320f35085effdb4ed77b15275022d17bdd1fcf7"
       }
     ]
   },
   {
-    "name": "web-97c9c8b4b-splm4",
+    "name": "web-65cf476bd9-n2xfz",
     "phase": "Running",
     "conditions": [
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:56Z",
+        "lastTransitionTime": "2026-10-26T18:29:45Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodReadyToStartContainers"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
+        "lastTransitionTime": "2026-10-26T18:29:43Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Initialized"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:27:02Z",
+        "lastTransitionTime": "2026-10-26T18:29:49Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "Ready"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:27:02Z",
+        "lastTransitionTime": "2026-10-26T18:29:49Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "ContainersReady"
       },
       {
         "lastProbeTime": null,
-        "lastTransitionTime": "2026-10-26T18:26:52Z",
+        "lastTransitionTime": "2026-10-26T18:29:43Z",
         "observedGeneration": 1,
         "status": "True",
         "type": "PodScheduled"
