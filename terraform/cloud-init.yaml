@@ -1,0 +1,59 @@
+#cloud-config
+package_update: true
+packages:
+  - ca-certificates
+  - curl
+  - iptables
+  - conntrack
+  - socat
+write_files:
+  - path: /usr/local/sbin/bootstrap-capstone-k3s
+    owner: root:root
+    permissions: '0700'
+    content: |
+      #!/bin/bash
+      set -euo pipefail
+      curl --fail --location --retry 5 --output /usr/local/bin/k3s \
+        'https://github.com/k3s-io/k3s/releases/download/v1.36.5%2Bk3s1/k3s'
+      echo 'd73847bcd3c5fccef0115b372e2f9a91f3032dc84bbf71518a4617565294d313  /usr/local/bin/k3s' | sha256sum --check -
+      chmod 0755 /usr/local/bin/k3s
+      mkdir -p /etc/rancher/k3s
+      chmod 0700 /etc/rancher/k3s
+      snap list amazon-ssm-agent >/dev/null 2>&1 || snap install amazon-ssm-agent --classic
+      snap start amazon-ssm-agent
+      systemctl daemon-reload
+      systemctl enable --now k3s
+      for attempt in $(seq 1 90); do
+        if /usr/local/bin/k3s kubectl wait --for=condition=Ready nodes --all --timeout=5s; then
+          touch /var/lib/capstone-k3s-ready
+          exit 0
+        fi
+        sleep 5
+      done
+      echo 'K3s did not become ready within the bootstrap window' >&2
+      exit 1
+  - path: /etc/systemd/system/k3s.service
+    owner: root:root
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Capstone K3s server
+      Wants=network-online.target
+      After=network-online.target
+      [Service]
+      Type=notify
+      ExecStartPre=-/sbin/modprobe br_netfilter
+      ExecStartPre=-/sbin/modprobe overlay
+      ExecStart=/usr/local/bin/k3s server --disable=traefik --disable=servicelb --secrets-encryption --write-kubeconfig-mode=600 --tls-san=localhost --tls-san=127.0.0.1
+      KillMode=process
+      Delegate=yes
+      LimitNOFILE=1048576
+      LimitNPROC=infinity
+      LimitCORE=infinity
+      TasksMax=infinity
+      Restart=always
+      RestartSec=5
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - [bash, /usr/local/sbin/bootstrap-capstone-k3s]

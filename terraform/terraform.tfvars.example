@@ -1,0 +1,8 @@
+# Non-secret example only. No credentials belong here.
+aws_profile           = "capstone"
+project_name          = "devops-capstone-k3s"
+subnet_id             = "subnet-0cfe9064bc272550c"
+ami_id                = "ami-03c066fbf8c68378e"
+instance_type         = "t3.medium"
+root_volume_gib       = 30
+approve_public_egress = false
