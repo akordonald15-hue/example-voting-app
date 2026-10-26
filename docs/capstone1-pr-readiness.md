@@ -1,5 +1,10 @@
 # Capstone 1 PR readiness — 2026-10-26
 
+**Local correction prepared:** [musl and Actions remediation](capstone1-musl-actions-remediation.md)
+supersedes the missing-details blocker below for newly rebuilt local candidates.
+PR #1 remains at the previously approved head until a separately approved push;
+the old hosted images are not certified by the new local results.
+
 **GO for a review-only PR after explicit publication approval; NO-GO for merge,
 image publication or deployment.** Local branch: `feature/capstone1-ci-release-readiness`.
 No remote writes or production changes performed.

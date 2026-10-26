@@ -9,6 +9,7 @@ import gzip
 import argparse
 import concurrent.futures
 import json
+import re
 from pathlib import Path
 import secrets
 import subprocess
@@ -58,6 +59,26 @@ def main():
                 pass
             time.sleep(1)
         raise AssertionError("Timed out waiting for regression condition")
+
+    # Explicit package gate: a scanner with missing CVE details must not silently
+    # certify the known-vulnerable musl revision. Inspect installed metadata only.
+    evidence["musl"] = {}
+    for role, image in images.items():
+        release = docker("run", "--rm", "--network", "none", "--read-only",
+                         "--cap-drop", "ALL", "--security-opt", "no-new-privileges",
+                         "--entrypoint", "/bin/cat", image, "/etc/alpine-release")
+        installed = docker("run", "--rm", "--network", "none", "--read-only",
+                           "--cap-drop", "ALL", "--security-opt", "no-new-privileges",
+                           "--entrypoint", "/bin/cat", image, "/lib/apk/db/installed")
+        musl = [dict(line.split(":", 1) for line in block.splitlines() if ":" in line)
+                for block in installed.split("\n\n") if "P:musl\n" in block + "\n"]
+        version = musl[0].get("V", "") if len(musl) == 1 else ""
+        parsed = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)-r(\d+)", version)
+        if not release.startswith("3.24.") or not parsed or tuple(map(int, parsed.groups())) < (1, 2, 6, 3):
+            raise AssertionError("Unreviewed Alpine branch or vulnerable musl in " + role)
+        evidence["musl"][role] = version
+    evidence["checks"].append("alpine_3_24_musl_cve_2026_107891_fixed_package")
+    print("PASS installed musl security floor in all three exact images")
 
     def start(role, image, extra, command=()):
         name = prefix + "-" + role

@@ -6,7 +6,7 @@ COPY Program.cs ./
 RUN dotnet publish -c Release -o /app --self-contained false --no-restore
 
 FROM mcr.microsoft.com/dotnet/runtime:10.0-alpine@sha256:e90a4b984926ed14328afec87e9be930b00dba55fed7e1743fbd585022afbad7 AS final
-RUN addgroup -g 1000 capstone && adduser -D -u 1000 -G capstone capstone
+RUN apk add --no-cache musl=1.2.6-r3 musl-utils=1.2.6-r3 && addgroup -g 1000 capstone && adduser -D -u 1000 -G capstone capstone
 WORKDIR /app
 COPY --from=build --chown=capstone:capstone /app .
 USER 1000:1000
