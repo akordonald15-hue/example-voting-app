@@ -46,3 +46,7 @@ modification, production deployment or infrastructure action is part of closeout
 Latest local remediation and exact receipts: `../capstone2/shipping-cart-remediation.md`. AWS options and exact approvals: `../capstone2/aws-deployment-plan.md`. No new remote push or deployment activation is included in this local closeout.
 
 Later load:124/126successes,2Shipping city-list failures; Locustexit1 and JobFailed with backoffLimit0. Successful simulated checkout is demonstrated; sustained error-free load is not. Earlier65/70 and failed Job remain disclosed.
+
+New verified browser-equivalent local profile:151/151requests successful,8simulated orders, JobSucceeded/exit0,193seconds total. This is explicitly separate from the original bulk-city profile, whose two timeout results remain unfixed/disclosed. AWS/shared-cluster deployment and Slack delivery remain unperformed. Exact new worker plan is in ../terraform-worker/README.md; no infrastructure approval has been inferred.
+
+Post-load Grafana authenticated refresh succeeded with all four service panels returning real metric data. Earlier unready samples are retained. Screenshot unavailable; availability remained below99%. Browser-profile image identity was verified from OCIindex through linux/amd64manifest/config to the runtime imageID.

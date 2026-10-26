@@ -12,7 +12,7 @@ Checkpoint: October 26, 2026. Deadline: October 27, 12:00 WAT.
 | Steady upstream load | Three-minute one-user run:70requests,65successes,5failures (7.14%); registration/login200; checkout blocked at Shipping | [Local load generator](local-services/loadgen/) |
 | Prometheus/Grafana | Prometheus returned all four focus targets UP=1 and real RED series; Grafana 3/3 Ready and health API database=ok; seven-panel dashboard exported and real panel queries saved; no screenshot | [Local values](monitoring-local.values.yaml) |
 | Fluent Bit/Loki | Real Fluent Bit to Loki Web query returned five lines labelled service=web and level=info | [Configs](observability/config/) |
-| Jaeger | Collector/backend configured; retrieved request trace pending | [Auxiliary chart](observability/) |
+| Jaeger | Real Catalogue HTTP spans retrieved; see jaeger-v3-catalogue-traces.ndjson | [Auxiliary chart](observability/) |
 | SLO/error budget | Written policy prepared, sustained measurement pending | [SLO](SLO.md) |
 | Slack | Rule/runbook prepared; actual firing/resolved delivery not demonstrated | [Runbook](runbook.md) |
 | Incident/postmortem | Local catalogue-loss drill recorded pending then firing alert; restoration/recovery receipts captured separately | Record actual timeline, mitigation and recovery before finalizing |
@@ -75,3 +75,11 @@ Direct Prometheus queries now contain all four focus services, including Payment
 [AWS capacity/approval plan](aws-deployment-plan.md) compares resize versus a worker; existing t3.medium remains NO-GO. [Capstone1 automation prerequisites](../docs/capstone1-automation-closeout.md) passed local tests but production activation remains unapproved and not demonstrated. Slack and fresh Trivy remain blocked; no credentials were provisioned or extra containers stopped.
 
 Final later load result: **124/126 successful requests (98.41%)**, two Shipping city-list502s. Locust exited1; JobFailed/BackoffLimitExceeded; no retries. Successful simulated orders were recorded, but this is not an error-free load pass. [Exact summary](evidence/runtime/load-e2e-summary.json), [retained log](evidence/runtime/loadgen-e2e.log).
+
+## Browser-equivalent bounded load — verified success
+
+A separately labelled browser profile uses the storefront autocomplete route for India, US and Britain instead of downloading complete country city lists. Actual run: **151requests,0failures,8completed simulated payment orders**,1user/3minutes,193seconds total Job elapsed; Job/PodSucceeded,exit0,zero restarts. See [summary](evidence/runtime/loadgen-browser-summary.json) and [diagnosis/profile disclosure](evidence/runtime/shipping-reliability.md). The upstream bulk-city profile still has a known latency limit; earlier65/70 and124/126 failure evidence is retained. No production/AWS load test is claimed.
+
+[Exact worker Terraform proposal](../terraform-worker/README.md): liveplan17add/0change/0destroy, five new rules attach to existing serverSG. Regionalquota32vCPU and$111.93remainingcredits verified read-only; creditexpiry/applicability unverified. Workercreation, IAMpermissionupdates, agentjoin andAWSdeployment await separate approvals.
+
+Latest post-load Grafana refresh passed: authenticated dashboard/panel queries returned request totals, rates and p95 for all four focus services, including Payment. [Dated dashboard receipts](evidence/dashboard/README.md) retain earlier failures. Availability remained below99%; no screenshot or SLO-attainment claim.

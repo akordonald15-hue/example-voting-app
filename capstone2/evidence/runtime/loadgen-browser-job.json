@@ -1,0 +1,109 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "robot-shop-loadgen-browser-205032",
+    "namespace": "robot-shop",
+    "labels": {
+      "service": "loadgen",
+      "profile": "browser"
+    }
+  },
+  "spec": {
+    "activeDeadlineSeconds": 360,
+    "backoffLimit": 0,
+    "parallelism": 1,
+    "completions": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "service": "loadgen",
+          "profile": "browser"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "HOST",
+                "value": "http://web:8080"
+              },
+              {
+                "name": "NUM_CLIENTS",
+                "value": "1"
+              },
+              {
+                "name": "RUN_TIME",
+                "value": "3m"
+              },
+              {
+                "name": "ERROR",
+                "value": "0"
+              },
+              {
+                "name": "SILENT",
+                "value": "0"
+              },
+              {
+                "name": "SHIPPING_PROFILE",
+                "value": "browser"
+              }
+            ],
+            "image": "docker.io/library/capstone2-loadgen:browser",
+            "imagePullPolicy": "Never",
+            "name": "loadgen",
+            "resources": {
+              "limits": {
+                "cpu": "200m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "50m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "fsGroup": 1000,
+          "runAsNonRoot": true,
+          "runAsUser": 1000,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 30,
+        "volumes": [
+          {
+            "emptyDir": {
+              "sizeLimit": "64Mi"
+            },
+            "name": "tmp"
+          }
+        ]
+      }
+    }
+  }
+}

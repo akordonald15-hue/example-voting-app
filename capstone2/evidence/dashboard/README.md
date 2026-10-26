@@ -52,6 +52,26 @@ missing Cart/Payment5xx series are not invented zeros. Availability was0.90833,
 still below99%, with negative remaining budget. Web p95 remained approximately
 6.67seconds. Keep those genuine limitations visible.
 
+## Final bounded post-load refresh
+
+One later read-only refresh succeeded after the browser-profile load completed:
+[Grafana API receipt](grafana-api-20261026T2056Z.json),
+[authenticated panel queries](grafana-panels-20261026T2056Z.json) and
+[direct Prometheus comparison](prometheus-direct-20261026T2056Z.json).
+The filenames identify this capture batch; exact query UTC timestamps are inside.
+No earlier success/failure receipt was replaced.
+
+Grafana again reported database `ok`, with the provisioned dashboard present.
+All four services now had real request totals, rates and p95 returned through
+Grafana itself. At this snapshot Payment total was26 and its p95 was5.75seconds;
+Web p95 was approximately0.95seconds. This demonstrates working dashboard-query
+data, not a browser screenshot or universal latency-objective success.
+Availability remained0.96667 below99%, with negative budget remaining. Missing
+Cart/Payment5xx series remain missing rather than invented zeros.
+
+No new browser tooling was installed or credential-bearing browser profile
+created under the constrained local memory budget. No screenshot is claimed.
+
 ## Slack status
 
 Local monitoring routes to `local-no-delivery`, with no Slack secret mounted.

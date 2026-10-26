@@ -1,0 +1,46 @@
+{
+  "job": "robot-shop-loadgen-browser-205032",
+  "jobUID": "4cb9977e-ab1b-458d-ac8f-23b479b31328",
+  "profile": "browser",
+  "users": 1,
+  "requestedDuration": "3m",
+  "startUTC": "2026-10-26T20:50:33Z",
+  "completionUTC": "2026-10-26T20:53:46Z",
+  "requests": 151,
+  "failures": 0,
+  "completedOrders": 8,
+  "orderIDs": [
+    "5c66b835-3a4f-41d7-bd34-b051cebbf51b",
+    "bde8040a-513f-44db-8d9c-ce9b8a8ff428",
+    "96cfcbfa-c3d6-4301-b27c-c2154b03b60b",
+    "b3e17d82-473a-405c-a7e4-2e16d6d0e050",
+    "274ba4ae-6100-4734-823d-92ba3b83d304",
+    "df1b0587-f7c3-422d-be1b-fd832ced30d0",
+    "ea34fa3e-dabb-4cdc-a1b4-c17dbd38a012",
+    "a7381a2f-491a-460f-aa9c-837780e0b16c"
+  ],
+  "podPhase": "Succeeded",
+  "containerStatus": [
+    {
+      "name": "loadgen",
+      "image": "docker.io/library/capstone2-loadgen:browser",
+      "imageID": "sha256:ae8ab49817dd05b7c49a18569689d71124644c2bd11a28a16224106575a26239",
+      "restartCount": 0,
+      "state": {
+        "terminated": {
+          "containerID": "containerd://4fac35d95c3008370ade48b47dac3c2e680c35c5012fdad5380a9371b8e77273",
+          "exitCode": 0,
+          "finishedAt": "2026-10-26T20:53:44Z",
+          "reason": "Completed",
+          "startedAt": "2026-10-26T20:50:36Z"
+        }
+      }
+    }
+  ],
+  "originalUpstreamResult": "124/126; 2 bulk-city timeouts retained separately",
+  "limitations": [
+    "One user only, 3-minute derivative browser autocomplete profile",
+    "Not proof original bulk-city endpoint fixed",
+    "Not a payment gateway transaction; local mock gateway"
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "capturedUTC": "2026-10-26T20:55:42.383893+00:00",
+  "queries": {
+    "requests_by_service": {
+      "expr": "sum by(service) (http_server_requests_total{service=~\"web|catalogue|cart|payment\"})",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793048144.839,
+                "1230"
+              ]
+            },
+            {
+              "metric": {
+                "service": "cart"
+              },
+              "value": [
+                1793048144.839,
+                "406"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793048144.839,
+                "562"
+              ]
+            },
+            {
+              "metric": {
+                "service": "payment"
+              },
+              "value": [
+                1793048144.839,
+                "26"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "request_rate": {
+      "expr": "sum by(service) (rate(http_server_requests_total{service=~\"web|catalogue|cart|payment\"}[5m]))",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793048145.232,
+                "0.4259716784395361"
+              ]
+            },
+            {
+              "metric": {
+                "service": "cart"
+              },
+              "value": [
+                1793048145.232,
+                "0.3778197577508612"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793048145.232,
+                "0.5333906234373321"
+              ]
+            },
+            {
+              "metric": {
+                "service": "payment"
+              },
+              "value": [
+                1793048145.232,
+                "0.05185722963862918"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "errors": {
+      "expr": "sum by(service) (rate(http_server_requests_total{service=~\"web|catalogue|cart|payment\",status=~\"5..\"}[5m]))",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793048145.317,
+                "0"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793048145.317,
+                "0"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "p95": {
+      "expr": "histogram_quantile(0.95,sum by(le,service) (rate(http_server_request_duration_seconds_bucket{service=~\"web|catalogue|cart|payment\"}[5m])))",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793048145.35,
+                "0.06607142857142854"
+              ]
+            },
+            {
+              "metric": {
+                "service": "cart"
+              },
+              "value": [
+                1793048145.35,
+                "0.061249999999999964"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793048145.35,
+                "0.9499999999999925"
+              ]
+            },
+            {
+              "metric": {
+                "service": "payment"
+              },
+              "value": [
+                1793048145.35,
+                "5.75"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "availability": {
+      "expr": "robot_shop:availability:1h",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "__name__": "robot_shop:availability:1h",
+                "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+                "job": "robot-shop-availability"
+              },
+              "value": [
+                1793048145.522,
+                "0.9666666666666667"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "probe_duration": {
+      "expr": "probe_duration_seconds{job=\"robot-shop-availability\"}",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "__name__": "probe_duration_seconds",
+                "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+                "job": "robot-shop-availability"
+              },
+              "value": [
+                1793048145.819,
+                "0.012044896"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "error_budget_remaining": {
+      "expr": "clamp_max(1 - (1 - robot_shop:availability:1h) / 0.01, 1)",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+                "job": "robot-shop-availability"
+              },
+              "value": [
+                1793048145.928,
+                "-2.3333333333333326"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

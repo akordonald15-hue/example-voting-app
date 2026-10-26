@@ -1,0 +1,30 @@
+{
+  "capturedUTC": "2026-10-26T20:40:05.128243+00:00",
+  "readOnly": true,
+  "requests": [
+    {
+      "country": "in",
+      "path": "/match/in/new",
+      "status": 200,
+      "bytes": 823,
+      "cities": 7,
+      "seconds": 1.186
+    },
+    {
+      "country": "us",
+      "path": "/match/us/new",
+      "status": 200,
+      "bytes": 1159,
+      "cities": 9,
+      "seconds": 2.805
+    },
+    {
+      "country": "gb",
+      "path": "/match/gb/lon",
+      "status": 200,
+      "bytes": 1315,
+      "cities": 9,
+      "seconds": 0.408
+    }
+  ]
+}

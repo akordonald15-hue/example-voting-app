@@ -16,6 +16,32 @@ This workload performs real business operations against disposable Robot Shop da
 
 No traffic is initiated by the documented `--version`/`--help` import checks.
 
+## Explicit browser shipping profile
+
+`SHIPPING_PROFILE=upstream` remains the default and retains random country plus
+the original `/cities/{country}` bulk endpoint. Earlier failures remain evidence;
+do not relabel a later successful profile as an unchanged upstream load pass.
+
+For this memory-constrained local demonstration, `SHIPPING_PROFILE=browser`
+uses the same `/match/{country}/{prefix}` autocomplete route as the storefront.
+It deliberately includes US, India and Great Britain, using `new`, `new` and
+`lon` prefixes; all subsequent shipping calculation, cart confirmation and payment
+requests are unchanged. This limits response sizes without changing database data,
+skipping payment, adding retries or increasing the proxy timeout. It changes the
+load distribution and is an explicit derivative profile, not a fix to bulk-city API.
+
+Three dependency-free tests verify both route profiles and visible failures for
+missing results/invalid profiles:
+`python -B capstone2/local-services/loadgen/test_shipping_profile.py -v`.
+All3 passed. Actual read-only autocomplete probes returned200 for all3 countries;
+see [Shipping diagnosis](../../evidence/runtime/shipping-reliability.md).
+The later browser-profile Job `robot-shop-loadgen-browser-205032` completed with
+151requests/zero failures and eight order IDs: [actual result](../../evidence/runtime/loadgen-browser-summary.json).
+It used the cache-only derivative image with no dependency installation. This
+separate one-user3minute result does not replace or conceal the earlier original
+upstream124/126 result. Runtime use requires those updated image bytes, not merely
+an env change on an older image.
+
 ## Actual local verification, 2026-10-26
 
 - Docker build completed with hash verification for all 37 locked dependencies.

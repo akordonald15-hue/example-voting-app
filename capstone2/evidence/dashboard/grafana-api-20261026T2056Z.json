@@ -1,0 +1,245 @@
+{
+  "health": {
+    "database": "ok",
+    "version": "13.2.4",
+    "commit": "0e79aef9d91abf3bdadae9af15763029072fb45b"
+  },
+  "search": [
+    {
+      "id": 2614944922910720,
+      "uid": "capstone2-robot-shop",
+      "orgId": 1,
+      "title": "Robot Shop \u2014 RED metrics, availability and logs",
+      "uri": "db/ef57553",
+      "url": "/d/capstone2-robot-shop/ef57553",
+      "slug": "",
+      "type": "dash-db",
+      "tags": [],
+      "isStarred": false,
+      "sortMeta": 0,
+      "isDeleted": false
+    }
+  ],
+  "datasources": [
+    {
+      "name": "Alertmanager",
+      "type": "alertmanager",
+      "uid": "alertmanager",
+      "url": "http://monitoring-alertmanager.observability:9093/",
+      "isDefault": false
+    },
+    {
+      "name": "Jaeger",
+      "type": "jaeger",
+      "uid": "jaeger",
+      "url": "http://jaeger:16686",
+      "isDefault": false
+    },
+    {
+      "name": "Loki",
+      "type": "loki",
+      "uid": "loki",
+      "url": "http://loki:3100",
+      "isDefault": false
+    },
+    {
+      "name": "Prometheus",
+      "type": "prometheus",
+      "uid": "prometheus",
+      "url": "http://monitoring-prometheus.observability:9090/",
+      "isDefault": true
+    }
+  ],
+  "dashboard": {
+    "meta": {
+      "type": "db",
+      "canSave": true,
+      "canEdit": true,
+      "canAdmin": true,
+      "canStar": true,
+      "canDelete": true,
+      "slug": "ef57553",
+      "url": "/d/capstone2-robot-shop/ef57553",
+      "expires": "0001-01-01T00:00:00Z",
+      "created": "2026-10-26T19:35:41Z",
+      "updated": "2026-10-26T19:35:41Z",
+      "updatedBy": "Anonymous",
+      "createdBy": "Anonymous",
+      "version": 1,
+      "hasAcl": false,
+      "isFolder": false,
+      "apiVersion": "v0alpha1",
+      "folderId": 0,
+      "folderUid": "",
+      "folderTitle": "General",
+      "folderUrl": "",
+      "provisioned": true,
+      "provisionedExternalId": "robot-shop.json",
+      "annotationsPermissions": {
+        "dashboard": {
+          "canAdd": true,
+          "canEdit": true,
+          "canDelete": true
+        }
+      }
+    },
+    "dashboard": {
+      "id": 2614944922910720,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit"
+            }
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 0
+          },
+          "id": 1,
+          "targets": [
+            {
+              "expr": "robot_shop:availability:1h"
+            }
+          ],
+          "title": "Catalogue synthetic availability (1h)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 8,
+            "y": 0
+          },
+          "id": 2,
+          "targets": [
+            {
+              "expr": "probe_duration_seconds{job=\"robot-shop-availability\"}"
+            }
+          ],
+          "title": "Probe duration",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 0
+          },
+          "id": 3,
+          "targets": [
+            {
+              "expr": "clamp_max(1 - (1 - robot_shop:availability:1h) / 0.01, 1)"
+            }
+          ],
+          "title": "Error budget remaining (fraction)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "uid": "loki"
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 6
+          },
+          "id": 4,
+          "targets": [
+            {
+              "expr": "{namespace=\"robot-shop\"}"
+            }
+          ],
+          "title": "Robot Shop logs (no Voting App collection)",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 16
+          },
+          "id": 5,
+          "targets": [
+            {
+              "expr": "sum by (service) (rate(http_server_requests_total{service=~\"web|catalogue|cart|payment\"}[5m]))"
+            }
+          ],
+          "title": "Service request rate \u2014 metric export required",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 16
+          },
+          "id": 6,
+          "targets": [
+            {
+              "expr": "sum by (service) (rate(http_server_requests_total{service=~\"web|catalogue|cart|payment\",status=~\"5..\"}[5m]))"
+            }
+          ],
+          "title": "Service 5xx rate \u2014 metric export required",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 16
+          },
+          "id": 7,
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.95,sum by (le,service) (rate(http_server_request_duration_seconds_bucket{service=~\"web|catalogue|cart|payment\"}[5m])))"
+            }
+          ],
+          "title": "Service p95 latency \u2014 metric export required",
+          "type": "timeseries"
+        }
+      ],
+      "refresh": "30s",
+      "schemaVersion": 39,
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "title": "Robot Shop \u2014 RED metrics, availability and logs",
+      "uid": "capstone2-robot-shop",
+      "version": 1
+    }
+  }
+}

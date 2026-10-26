@@ -1,0 +1,7 @@
+# Copy privately to terraform.tfvars; never add credentials or a join token.
+subnet_id = "REVIEWED_DEFAULT_SUBNET_ID"
+server_security_group_id = "REVIEWED_SERVER_SECURITY_GROUP_ID"
+server_private_ip = "REVIEWED_SERVER_PRIVATE_IP"
+instance_profile_name = "EXISTING_SSM_INSTANCE_PROFILE_NAME"
+ami_id = "REVIEWED_CANONICAL_AMI_ID"
+approve_worker_public_egress = false

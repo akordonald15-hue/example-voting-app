@@ -151,3 +151,9 @@ must not be mislabeled least privilege. Retain image-only drift/PVC guards and
 explicit deployment approval. Review stale action pins against published main
 before enabling anything; the local feature workflow is not proof of remote main.
 No CI variable, runner or production access was enabled by this assessment.
+
+## Superseding live worker preflight — October26evening
+
+The earlier5vCPUquota concern is superseded: live ServiceQuotas now returns32vCPU, andonlythe2vCPUserverwasrunning. m7i.xlargeandt3.xlargeofferingswereverifiedineu-west-1a. FreeTierAPIreportsACTIVE/PAIDand$111.93remainingcredits; expiration/productapplicabilityremainunverified.
+
+The executable separate Terraform root and exact17-addition savedplan are documented in [workerproposal](../terraform-worker/README.md). Grossestimatedworkerbasecost$0.23573/hour,$172.08/730-hourmonth,$5.66/24hours; proposed$10allowanceincludingcontingency. NoAWSapplyoccurred. IAMstillblocks m7i.xlarge,50GiBvolumeandprivateingresscreation; anadministratorupdateandexplicitownerapprovalarerequired. FiveplannednewrulesattachtoexistingserverSG; zeroTerraformupdatesdoesnotmeanproductionnetworkunchanged.

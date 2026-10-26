@@ -1,0 +1,43 @@
+#cloud-config
+package_update: true
+packages: [ca-certificates, curl, iptables, conntrack, socat]
+write_files:
+  - path: /usr/local/sbin/prepare-capstone-agent
+    owner: root:root
+    permissions: '0700'
+    content: |
+      #!/bin/bash
+      set -euo pipefail
+      umask 077
+      curl --fail --location --retry 3 --max-time 180 -o /usr/local/bin/k3s 'https://github.com/k3s-io/k3s/releases/download/v1.36.5%2Bk3s1/k3s'
+      echo 'd73847bcd3c5fccef0115b372e2f9a91f3032dc84bbf71518a4617565294d313  /usr/local/bin/k3s' | sha256sum --check -
+      chmod 0755 /usr/local/bin/k3s
+      install -d -m 0700 /etc/rancher/k3s
+      snap list amazon-ssm-agent >/dev/null 2>&1 || snap install amazon-ssm-agent --classic
+      snap start amazon-ssm-agent
+      systemctl daemon-reload
+      # No token in user-data/state. Joining requires separate approval.
+  - path: /etc/systemd/system/k3s-agent.service
+    owner: root:root
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Capstone2 isolated K3s worker
+      Wants=network-online.target
+      After=network-online.target
+      ConditionPathExists=/etc/rancher/k3s/agent-token
+      [Service]
+      Type=notify
+      ExecStartPre=-/sbin/modprobe br_netfilter
+      ExecStartPre=-/sbin/modprobe overlay
+      ExecStart=/usr/local/bin/k3s agent --server https://${server_ip}:6443 --token-file /etc/rancher/k3s/agent-token --node-name capstone2-worker --node-label capstone-workload=robot-shop --node-taint capstone-workload=robot-shop:NoSchedule
+      KillMode=process
+      Delegate=yes
+      LimitNOFILE=1048576
+      TasksMax=infinity
+      Restart=on-failure
+      RestartSec=10
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - /usr/local/sbin/prepare-capstone-agent

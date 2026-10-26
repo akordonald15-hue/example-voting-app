@@ -6,6 +6,27 @@ from locust import HttpUser, task, between
 from random import choice
 from random import randint
 
+def shipping_destination(client, headers, profile):
+    codes = client.get('/api/shipping/codes', headers=headers).json()
+    if profile == 'upstream':
+        code = choice(codes)
+        route = '/api/shipping/cities/{}'.format(code['code'])
+    elif profile == 'browser':
+        # Same bounded autocomplete route used by the real storefront. Include
+        # the large countries that exposed the all-cities endpoint limitation.
+        prefixes = {'us': 'new', 'in': 'new', 'gb': 'lon'}
+        eligible = [code for code in codes if code['code'] in prefixes]
+        if not eligible:
+            raise ValueError('browser shipping profile has no eligible country')
+        code = choice(eligible)
+        route = '/api/shipping/match/{}/{}'.format(code['code'], prefixes[code['code']])
+    else:
+        raise ValueError('unknown SHIPPING_PROFILE')
+    cities = client.get(route, headers=headers).json()
+    if not cities:
+        raise ValueError('shipping returned no matching city')
+    return code, choice(cities)
+
 class UserBehavior(HttpUser):
     wait_time = between(2, 10)
 
@@ -78,8 +99,7 @@ class UserBehavior(HttpUser):
         self.client.get('/api/cart/update/{}/{}/2'.format(uniqueid, item['sku']), headers={'x-forwarded-for': fake_ip})
 
         # country codes
-        code = choice(self.client.get('/api/shipping/codes', headers={'x-forwarded-for': fake_ip}).json())
-        city = choice(self.client.get('/api/shipping/cities/{}'.format(code['code']), headers={'x-forwarded-for': fake_ip}).json())
+        code, city = shipping_destination(self.client, {'x-forwarded-for': fake_ip}, os.getenv('SHIPPING_PROFILE', 'upstream'))
         print('code {} city {}'.format(code, city))
         shipping = self.client.get('/api/shipping/calc/{}'.format(city['uuid']), headers={'x-forwarded-for': fake_ip}).json()
         shipping['location'] = '{} {}'.format(code['name'], city['name'])

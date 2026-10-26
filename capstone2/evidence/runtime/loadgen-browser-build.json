@@ -1,0 +1,13 @@
+{
+  "builtUTC": "2026-10-26T20:50:57.756689+00:00",
+  "baseImage": "capstone2-loadgen:local",
+  "baseImageID": "sha256:6a88c34dc7da5bf5203f7debec4369734a46732830bdec652592d4cde1115121",
+  "derivativeImage": "capstone2-loadgen:browser",
+  "imageID": "sha256:f3af05c676346d907ea3af59718338750e4fb0c87b55f08469a989d1f0be31f9",
+  "scriptSHA256": "07b7bc9bb4f0899d464a4b6e8393bdf9302149f0380839c40f6355158c0b35a5",
+  "buildNetwork": "none",
+  "pull": false,
+  "dependencyInstall": false,
+  "import": "binary stdin ctr namespace k8s.io",
+  "job": "robot-shop-loadgen-browser-205032"
+}
