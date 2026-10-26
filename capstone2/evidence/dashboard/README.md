@@ -29,6 +29,29 @@ error rate and a10-second Web p95. Do not present this window as healthy.
 No browser screenshot was generated. Installed executables did not provide a
 verified credential-safe automation path; API responses are the genuine evidence.
 
+## Later refresh after successful checkout
+
+[Earlier successful Grafana query capture](prometheus-panel-queries-20261026T2009Z.json)
+is retained separately. The latest `prometheus-panel-queries.json` records a
+20:32UTC refresh failure (`URLError`), not clean/empty results. Grafana had2/3
+Ready containers; its own container was unready and a direct five-second health
+request also timed out. No endpoint had been routed through its Service.
+No restart or settings change was attempted by this evidence task.
+
+To distinguish application metrics from Grafana availability,
+[direct Prometheus queries](prometheus-direct-20261026T2034Z.json) were captured
+read-only from the same local node. These returned real request totals, rates and
+p95 for **all four focus services**, including Payment total4 and p95 approximately
+0.475seconds. Cart had restarted between captures, so its raw counter reset;
+do not compare raw totals as cumulative across process replacement.
+
+This establishes four-service metric presence in Prometheus and queries matching
+the provisioned dashboard. It does **not** establish a working rendered Grafana
+dashboard at this later instant. Catalogue/Web zero5xx series were present;
+missing Cart/Payment5xx series are not invented zeros. Availability was0.90833,
+still below99%, with negative remaining budget. Web p95 remained approximately
+6.67seconds. Keep those genuine limitations visible.
+
 ## Slack status
 
 Local monitoring routes to `local-no-delivery`, with no Slack secret mounted.

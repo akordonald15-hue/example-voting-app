@@ -82,8 +82,10 @@ def main():
         assert config["PGHOST"] in names and config["REDIS_HOST"] in names
         print(f"PASS {release}: 5 workloads, 4 ClusterIP services, 7 policies; 608Mi requested/1216Mi limited")
 
+    # A tag is irrelevant when a valid digest is set. Clear it only for this
+    # tag-only negative case; the published overlay intentionally pins digests.
     for flags in [
-        ["--set", "components.vote.image.tag=latest"],
+        ["--set", "components.vote.image.tag=latest", "--set-string", "components.vote.image.digest="],
         ["--set", "components.worker.image.digest=sha256:bad"],
         ["--set", "database.storageSize=0Gi"],
         ["--set", "database.password=forbidden"],

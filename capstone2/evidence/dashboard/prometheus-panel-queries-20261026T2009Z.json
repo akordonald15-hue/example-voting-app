@@ -1,0 +1,213 @@
+{
+  "capturedUTC": "2026-10-26T20:09:04.978876+00:00",
+  "queries": {
+    "requests_by_service": {
+      "expr": "sum by(service) (http_server_requests_total{service=~\"web|catalogue|cart|payment\"})",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793045346.851,
+                "449"
+              ]
+            },
+            {
+              "metric": {
+                "service": "cart"
+              },
+              "value": [
+                1793045346.851,
+                "836"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793045346.851,
+                "141"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "request_rate": {
+      "expr": "sum by(service) (rate(http_server_requests_total{service=~\"web|catalogue|cart|payment\"}[5m]))",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793045347.047,
+                "0.25931976720494043"
+              ]
+            },
+            {
+              "metric": {
+                "service": "cart"
+              },
+              "value": [
+                1793045347.047,
+                "0.21116038186688005"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793045347.047,
+                "0.14446905769131038"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "errors": {
+      "expr": "sum by(service) (rate(http_server_requests_total{service=~\"web|catalogue|cart|payment\",status=~\"5..\"}[5m]))",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793045347.156,
+                "0"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793045347.156,
+                "0.007408669625195404"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "p95": {
+      "expr": "histogram_quantile(0.95,sum by(le,service) (rate(http_server_request_duration_seconds_bucket{service=~\"web|catalogue|cart|payment\"}[5m])))",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "service": "catalogue"
+              },
+              "value": [
+                1793045347.35,
+                "0.9374999999999997"
+              ]
+            },
+            {
+              "metric": {
+                "service": "cart"
+              },
+              "value": [
+                1793045347.35,
+                "0.12249999999999928"
+              ]
+            },
+            {
+              "metric": {
+                "service": "web"
+              },
+              "value": [
+                1793045347.35,
+                "10"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "availability": {
+      "expr": "robot_shop:availability:1h",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "__name__": "robot_shop:availability:1h",
+                "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+                "job": "robot-shop-availability"
+              },
+              "value": [
+                1793045347.452,
+                "0.8715596330275229"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "probe_duration": {
+      "expr": "probe_duration_seconds{job=\"robot-shop-availability\"}",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "__name__": "probe_duration_seconds",
+                "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+                "job": "robot-shop-availability"
+              },
+              "value": [
+                1793045347.741,
+                "0.013237244"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "error_budget_remaining": {
+      "expr": "clamp_max(1 - (1 - robot_shop:availability:1h) / 0.01, 1)",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "instance": "http://web.robot-shop.svc.cluster.local:8080/api/catalogue/products",
+                "job": "robot-shop-availability"
+              },
+              "value": [
+                1793045347.944,
+                "-11.844036697247708"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

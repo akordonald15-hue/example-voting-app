@@ -32,3 +32,5 @@ volume was removed. See [receipt](bounded-retry.json). No further cleanup scope 
 scan retry was attempted. Vulnerability counts remain **unknown**, not zero.
 
 At the subsequent submission-readiness checkpoint Windows had829068KiB free physical memory. No further scanner retry or container stops were attempted: the prior bounded retry failed and scope was not expanded. Existing failure/restoration receipts remain preserved.
+
+During later Shipping/Cart work free Windows memory fell to583360KiB. No new Trivy extraction was attempted, and no additional containers or databases were stopped. Vulnerability results remain unknown for this local Capstone2 build.

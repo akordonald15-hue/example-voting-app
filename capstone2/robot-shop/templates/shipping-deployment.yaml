@@ -19,12 +19,15 @@ spec:
       - name: shipping
         image: {{ include "robot.image" (dict "root" . "name" "shipping") }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - {name: CART_ENDPOINT, value: "cart.{{ .Release.Namespace }}.svc.cluster.local.:8080"}
+          - {name: DB_HOST, value: "mysql.{{ .Release.Namespace }}.svc.cluster.local."}
         ports:
         - containerPort: 8080
         # it's Java it needs lots of memory
         resources:
           limits:
-            cpu: 200m
+            cpu: {{ ternary "500m" "200m" (.Values.localDemo | default false) }}
             memory: 1000Mi
           requests:
             cpu: 100m

@@ -1,8 +1,8 @@
 {
-  "utc": "2026-10-26T20:11:40.232379+00:00",
+  "utc": "2026-10-26T20:35:43.702832+00:00",
   "pods": [
     {
-      "name": "cart-754564d6b9-68bm5",
+      "name": "cart-5fd9b7bf7-x56zt",
       "phase": "Running",
       "containers": [
         {
@@ -132,6 +132,19 @@
       ]
     },
     {
+      "name": "robot-shop-loadgen-e2e-swsxn",
+      "phase": "Failed",
+      "containers": [
+        {
+          "name": "loadgen",
+          "ready": false,
+          "restarts": 0,
+          "image": "docker.io/library/capstone2-loadgen:local",
+          "imageID": "sha256:440bfe46e2a0239e186fe8e41d33c27b9cae556a8694f854dd473dab049bd2d3"
+        }
+      ]
+    },
+    {
       "name": "robot-shop-loadgen-z2vmz",
       "phase": "Failed",
       "containers": [
@@ -145,7 +158,7 @@
       ]
     },
     {
-      "name": "shipping-7c48b87957-czxjv",
+      "name": "shipping-787f477585-bszdm",
       "phase": "Running",
       "containers": [
         {

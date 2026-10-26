@@ -1,0 +1,13 @@
+[
+  {
+    "path": "http://shipping:8080/codes",
+    "error": "The operation was aborted due to timeout",
+    "ms": 25297
+  },
+  {
+    "path": "http://web:8080/api/shipping/codes",
+    "status": 200,
+    "bytes": 1026,
+    "ms": 15321
+  }
+]

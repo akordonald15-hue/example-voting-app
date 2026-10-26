@@ -19,10 +19,10 @@ actually demonstrated are marked verified. Local and AWS results are distinct.
 | Robot Shop services and stores | All12Pods observed Ready in local kind, not AWS | ../capstone2/evidence/runtime/robot-shop-latest.json |
 | Instana removal | Four focus adapters built without active Instana; legacy supporting images remain pinned upstream | Build receipts and source |
 | Prometheus RED | Real exported/scraped series; assess each panel independently | Runtime and dashboard query receipts |
-| Grafana | Ready/healthy; seven-panel dashboard exported and real queries captured; Payment series absent | ../capstone2/evidence/dashboard/ |
+| Grafana | Ready/healthy; seven-panel dashboard exported and real queries captured; later direct queries show Payment plus other three services; latest Grafana became unready | ../capstone2/evidence/dashboard/ |
 | Fluent Bit/Loki | Real Web service/level log search verified | loki-web-info-query.json |
 | OTEL/Jaeger | Catalogue HTTP spans retrieved | jaeger-v3-catalogue-traces.ndjson |
-| Load/shopping flow | Registration direct/proxy200; bounded run70requests/5failures; Shipping prevents checkout | registration-direct-proxy.json and load receipts |
+| Load/shopping flow | Registration direct/proxy200; earlier bounded run70requests/5failures preserved; later11-request simulated checkout passed; new load recorded separately | registration-direct-proxy.json and load receipts |
 | SLO/error budget | Policy/rules prepared; no99%attainment claim from short rehearsal | SLO.md and measured panel result |
 | Actionable Slack alert | Rule/runbook prepared; no delivered notification verified | Missing webhook/workspace access; local-no-delivery receiver |
 | Incident/postmortem | Local catalogue-loss: firing alert, restoration, probe1 and subsequent alert resolution | postmortem-local.md and incident receipts |
@@ -42,3 +42,7 @@ private promotion bundles, raw User logs or user database exports.
 Current branch is feature/capstone1-ci-release-readiness. Expected origin is
 https://github.com/akordonald15-hue/example-voting-app.git. No main merge, AWS
 modification, production deployment or infrastructure action is part of closeout.
+
+Latest local remediation and exact receipts: `../capstone2/shipping-cart-remediation.md`. AWS options and exact approvals: `../capstone2/aws-deployment-plan.md`. No new remote push or deployment activation is included in this local closeout.
+
+Later load:124/126successes,2Shipping city-list failures; Locustexit1 and JobFailed with backoffLimit0. Successful simulated checkout is demonstrated; sustained error-free load is not. Earlier65/70 and failed Job remain disclosed.

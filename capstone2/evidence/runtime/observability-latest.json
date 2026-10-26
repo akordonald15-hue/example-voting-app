@@ -1,5 +1,5 @@
 {
-  "utc": "2026-10-26T20:11:42.270961+00:00",
+  "utc": "2026-10-26T20:35:44.139968+00:00",
   "pods": [
     {
       "name": "blackbox-79f6cf79fb-ph2h2",
@@ -59,8 +59,8 @@
       "containers": [
         {
           "name": "grafana",
-          "ready": true,
-          "restarts": 0,
+          "ready": false,
+          "restarts": 1,
           "image": "docker.io/grafana/grafana:13.2.4-distroless",
           "imageID": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35"
         },

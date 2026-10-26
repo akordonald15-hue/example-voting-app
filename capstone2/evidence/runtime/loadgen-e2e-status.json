@@ -1,0 +1,28 @@
+{
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": "2026-10-26T20:35:29Z",
+        "lastTransitionTime": "2026-10-26T20:35:29Z",
+        "message": "Job has reached the specified backoff limit",
+        "reason": "BackoffLimitExceeded",
+        "status": "True",
+        "type": "FailureTarget"
+      },
+      {
+        "lastProbeTime": "2026-10-26T20:35:29Z",
+        "lastTransitionTime": "2026-10-26T20:35:29Z",
+        "message": "Job has reached the specified backoff limit",
+        "reason": "BackoffLimitExceeded",
+        "status": "True",
+        "type": "Failed"
+      }
+    ],
+    "failed": 1,
+    "ready": 0,
+    "startTime": "2026-10-26T20:31:45Z",
+    "terminating": 0,
+    "uncountedTerminatedPods": {}
+  },
+  "activeDeadlineSeconds": 360
+}

@@ -1,0 +1,39 @@
+{
+  "planned_duration_seconds": 180,
+  "users": 1,
+  "deadline_seconds": 360,
+  "requests": 126,
+  "failures": 2,
+  "successes": 124,
+  "success_percent": 98.4127,
+  "error_percent": 1.5873,
+  "successful_payment_orders_logged": 4,
+  "locust_exit_code": 1,
+  "job_status": {
+    "conditions": [
+      {
+        "lastProbeTime": "2026-10-26T20:35:29Z",
+        "lastTransitionTime": "2026-10-26T20:35:29Z",
+        "message": "Job has reached the specified backoff limit",
+        "reason": "BackoffLimitExceeded",
+        "status": "True",
+        "type": "FailureTarget"
+      },
+      {
+        "lastProbeTime": "2026-10-26T20:35:29Z",
+        "lastTransitionTime": "2026-10-26T20:35:29Z",
+        "message": "Job has reached the specified backoff limit",
+        "reason": "BackoffLimitExceeded",
+        "status": "True",
+        "type": "Failed"
+      }
+    ],
+    "failed": 1,
+    "ready": 0,
+    "startTime": "2026-10-26T20:31:45Z",
+    "terminating": 0,
+    "uncountedTerminatedPods": {}
+  },
+  "historical_run": "Earlier65/70 run and failed Job retained separately",
+  "remaining_failures": "Shipping cities/in and cities/us returned502; no errors suppressed"
+}

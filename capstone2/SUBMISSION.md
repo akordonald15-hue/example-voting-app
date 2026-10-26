@@ -65,3 +65,13 @@ or a running collector is not proof of end-to-end telemetry. No fabricated scree
 Runtime receipts include initial failures as well as subsequent successes. See `evidence/runtime/jaeger-v3-catalogue-traces.ndjson`, `loki-web-info-query.json` and `prometheus-up.json`. No complete checkout, delivered Slack alert or successful fresh Trivy scan is claimed.
 
 Latest closeout: [registration investigation](registration-investigation.md), [load summary](evidence/runtime/load-summary.json), [dashboard evidence](evidence/dashboard/README.md), [both-capstone rubric](../docs/final-rubric-status.md). Payment request series were absent in the captured dashboard query; do not claim all four business-service panels contain data.
+
+## Later remediation checkpoint
+
+The earlier65/70 run and unsuccessful Job completion remain historical evidence. A later local11-request smoke flow returned HTTP200 throughout and generated a simulated order; see [shopping receipt](evidence/runtime/shopping-flow.json) and [remediation](shipping-cart-remediation.md). The subsequent one-user load is separate evidence and retains all failures.
+
+Direct Prometheus queries now contain all four focus services, including Payment. Grafana dashboard provisioning was previously verified, but the latest Grafana refresh became unavailable. Do not substitute direct metrics for a fresh rendered-dashboard pass. See the dated captures in [dashboard evidence](evidence/dashboard/README.md).
+
+[AWS capacity/approval plan](aws-deployment-plan.md) compares resize versus a worker; existing t3.medium remains NO-GO. [Capstone1 automation prerequisites](../docs/capstone1-automation-closeout.md) passed local tests but production activation remains unapproved and not demonstrated. Slack and fresh Trivy remain blocked; no credentials were provisioned or extra containers stopped.
+
+Final later load result: **124/126 successful requests (98.41%)**, two Shipping city-list502s. Locust exited1; JobFailed/BackoffLimitExceeded; no retries. Successful simulated orders were recorded, but this is not an error-free load pass. [Exact summary](evidence/runtime/load-e2e-summary.json), [retained log](evidence/runtime/loadgen-e2e.log).

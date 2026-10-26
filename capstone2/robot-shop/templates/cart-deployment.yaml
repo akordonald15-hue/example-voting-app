@@ -20,6 +20,7 @@ spec:
         image: {{ include "robot.image" (dict "root" . "name" "cart") }}
         imagePullPolicy: {{ if .Values.localDemo }}Never{{ else }}{{ .Values.image.pullPolicy }}{{ end }}
         env:
+          - {name: CATALOGUE_HOST, value: "catalogue.{{ .Release.Namespace }}.svc.cluster.local."}
           - {name: OTEL_SERVICE_NAME, value: cart}
           - {name: OTEL_EXPORTER_OTLP_ENDPOINT, value: 'http://otel.observability.svc.cluster.local:4318'}
           - {name: OTEL_EXPORTER_OTLP_PROTOCOL, value: http/protobuf}
@@ -30,7 +31,7 @@ spec:
         startupProbe: {tcpSocket: {port: 8080}, periodSeconds: 5, failureThreshold: 36}
         resources:
           limits:
-            cpu: 200m
+            cpu: {{ ternary "500m" "200m" (.Values.localDemo | default false) }}
             memory: 100Mi
           requests:
             cpu: 100m

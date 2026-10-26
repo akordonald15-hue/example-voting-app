@@ -1,0 +1,76 @@
+{
+  "success": true,
+  "receipts": [
+    {
+      "path": "/api/user/register",
+      "method": "POST",
+      "status": 200,
+      "ms": 6097
+    },
+    {
+      "path": "/api/user/login",
+      "method": "POST",
+      "status": 200,
+      "ms": 883
+    },
+    {
+      "path": "/api/user/uniqueid",
+      "method": "GET",
+      "status": 200,
+      "ms": 299
+    },
+    {
+      "path": "/api/catalogue/products",
+      "method": "GET",
+      "status": 200,
+      "ms": 301
+    },
+    {
+      "path": "/api/cart/add/anonymous-6/Watson/1",
+      "method": "GET",
+      "status": 200,
+      "ms": 1900
+    },
+    {
+      "path": "/api/cart/cart/anonymous-6",
+      "method": "GET",
+      "status": 200,
+      "ms": 105
+    },
+    {
+      "path": "/api/shipping/codes",
+      "method": "GET",
+      "status": 200,
+      "ms": 2415
+    },
+    {
+      "path": "/api/shipping/cities/au",
+      "method": "GET",
+      "status": 200,
+      "ms": 6575
+    },
+    {
+      "path": "/api/shipping/calc/3200588",
+      "method": "GET",
+      "status": 200,
+      "ms": 332
+    },
+    {
+      "path": "/api/shipping/confirm/anonymous-6",
+      "method": "POST",
+      "status": 200,
+      "ms": 3121
+    },
+    {
+      "path": "/api/payment/pay/anonymous-6",
+      "method": "POST",
+      "status": 200,
+      "ms": 7514
+    }
+  ],
+  "order": {
+    "orderid": "18208816-0fa1-450a-b4f8-367c09239788"
+  },
+  "utc": "2026-10-26T20:31:28.313750+00:00",
+  "scope": "local kind; simulated payment gateway; synthetic credentials not exported"
+}

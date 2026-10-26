@@ -26,6 +26,17 @@ class ConfigurationTests(unittest.TestCase):
             command += ["-f", str(self.fixture)]
         return subprocess.run(command, capture_output=True, text=True, timeout=30)
 
+    def test_shipping_cart_dependency_endpoints(self):
+        rendered = subprocess.check_output([HELM, "template", "robot-shop", str(ROOT/"robot-shop"), "-n", "robot-shop", "-f", str(ROOT/"robot-images.resolved.yaml"), "-f", str(ROOT/"local-demo.values.yaml")], text=True, timeout=30)
+        deployments={d["metadata"]["name"]:d for d in yaml.safe_load_all(rendered) if d and d["kind"]=="Deployment"}
+        shipping=deployments["shipping"]["spec"]["template"]["spec"]["containers"][0]
+        env={e["name"]:e["value"] for e in shipping["env"]}
+        self.assertEqual(env["CART_ENDPOINT"],"cart.robot-shop.svc.cluster.local.:8080")
+        self.assertEqual(env["DB_HOST"],"mysql.robot-shop.svc.cluster.local.")
+        self.assertEqual(shipping["resources"]["limits"]["cpu"],"500m")
+        cart=deployments["cart"]["spec"]["template"]["spec"]["containers"][0]
+        self.assertEqual({e["name"]:e["value"] for e in cart["env"]}["CATALOGUE_HOST"],"catalogue.robot-shop.svc.cluster.local.")
+
     def test_robot_local_render_is_private_and_bounded(self):
         values = {"images": {name: "example.invalid/" + name + "@sha256:" + "0"*64
                   for name in ("web","catalogue","cart","payment","user","shipping","ratings","dispatch","mongodb","mysql","rabbitmq","redis")}}
