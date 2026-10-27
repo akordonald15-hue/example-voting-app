@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "bd9dfa3a2cf3bf27c893a3a7a64b81e8b7c00115",
+  "run": "https://github.com/akordonald15-hue/example-voting-app/actions/runs/40294083665/attempts/2",
+  "evidenceScope": "Previously recorded hosted publication; not new registry/cluster verification",
+  "digests": {
+    "vote": "sha256:ad74a28ae9a2313f7eb5979d5c2eb51a89fb988e599ae4abf4d34d58c5f84c8b",
+    "result": "sha256:e049c330f4fada3747ad402892e99902221c9cb4e61f4865aab19d2f3d7fea99",
+    "worker": "sha256:591118792ba4c2e93b43fc8d1f1570b12cee35be5c229188827bd8771bdd3238"
+  }
+}

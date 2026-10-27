@@ -1,3 +1,5 @@
+> Current closeout: [submission evidence and scope](../submission/README.md). The notes below are historical; they do not override the current matrix or authorize execution.
+
 # Local Robot Shop catalogue availability drill
 
 Environment: local kind `capstone-rollback-lab`, namespace `robot-shop`; October26,2026.

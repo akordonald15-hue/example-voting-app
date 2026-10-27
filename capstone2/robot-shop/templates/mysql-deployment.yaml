@@ -14,6 +14,9 @@ spec:
       labels:
         service: mysql
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       containers:
       - name: mysql

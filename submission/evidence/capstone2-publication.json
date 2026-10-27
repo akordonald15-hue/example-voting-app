@@ -1,0 +1,98 @@
+{
+  "UTC": "2026-10-27T18:02:38.217190+00:00",
+  "readOnly": true,
+  "images": [
+    {
+      "component": "web",
+      "reference": "ghcr.io/akordonald15-hue/capstone2-web@sha256:9ded3c31ca93f19ecdc3aedc555ac73bf8347542df04e47460605963efeecf3d",
+      "authorizationHTTP": 200,
+      "manifestHTTP": 200,
+      "manifestDigest": "sha256:9ded3c31ca93f19ecdc3aedc555ac73bf8347542df04e47460605963efeecf3d",
+      "configDigest": "sha256:756160d701ee34f51f43a6b84f20d5586f18e048f9b4d64abbf7cddec53a8ee6",
+      "sourceConfigMatches": true,
+      "linuxAmd64": true,
+      "state": "VERIFIED_ACCESSIBLE"
+    },
+    {
+      "component": "cart",
+      "reference": "ghcr.io/akordonald15-hue/capstone2-cart@sha256:b04e18ce689f1b3b319bedb8fdcd2bb9904d0ae8720515161d69a3e2e21c8795",
+      "authorizationHTTP": 200,
+      "manifestHTTP": 200,
+      "manifestDigest": "sha256:b04e18ce689f1b3b319bedb8fdcd2bb9904d0ae8720515161d69a3e2e21c8795",
+      "configDigest": "sha256:5521eceff5612d4efad5b2b9901d46dbc4359c616bca539f5a0f889dfffc5deb",
+      "sourceConfigMatches": true,
+      "linuxAmd64": true,
+      "state": "VERIFIED_ACCESSIBLE"
+    },
+    {
+      "component": "catalogue",
+      "reference": "ghcr.io/akordonald15-hue/capstone2-catalogue:tested-config-6fd2ed264be5f1414b5f43653c0027a78d74e17b0f20689dc967560408bf61ab",
+      "authorizationHTTP": 200,
+      "manifestHTTP": 404,
+      "registryErrors": [
+        "MANIFEST_UNKNOWN"
+      ],
+      "state": "ABSENT_AUTHENTICATED"
+    },
+    {
+      "component": "payment",
+      "reference": "ghcr.io/akordonald15-hue/capstone2-payment:tested-config-42db7a3d25e9b1520878b7401ebe26daacfefdd8d453c23c7ec15c580981ee29",
+      "authorizationHTTP": 200,
+      "manifestHTTP": 404,
+      "registryErrors": [
+        "MANIFEST_UNKNOWN"
+      ],
+      "state": "ABSENT_AUTHENTICATED"
+    },
+    {
+      "component": "loadgen",
+      "reference": "ghcr.io/akordonald15-hue/capstone2-loadgen:tested-config-ae8ab49817dd05b7c49a18569689d71124644c2bd11a28a16224106575a26239",
+      "authorizationHTTP": 200,
+      "manifestHTTP": 404,
+      "registryErrors": [
+        "MANIFEST_UNKNOWN"
+      ],
+      "state": "ABSENT_AUTHENTICATED"
+    }
+  ],
+  "catalogueLocal": {
+    "id": "sha256:8d44016a0e68fefde17fc525f6c96cb824b59628118a316051d9d85a7c9f7de6",
+    "expected": "sha256:8d44016a0e68fefde17fc525f6c96cb824b59628118a316051d9d85a7c9f7de6",
+    "identityUnchanged": true,
+    "os": "linux",
+    "architecture": "amd64"
+  },
+  "submissionScope": {
+    "RobotShopAWSDeployment": "NOT PERFORMED",
+    "cataloguePushFailure": "Docker Desktop registry PUT could not resolve ghcr.io; no retry",
+    "remaining": "Catalogue,Payment,Loadgen unpublished; partial Catalogue artifacts retained",
+    "stabilityCounts": {
+      "windowsDNS": {
+        "pass": 2,
+        "fail": 1,
+        "samples": 3
+      },
+      "windowsHTTPS": {
+        "pass": 2,
+        "fail": 1,
+        "samples": 3
+      },
+      "dockerContainerDNS": {
+        "pass": 2,
+        "fail": 1,
+        "samples": 3
+      },
+      "dockerContainerHTTPS": {
+        "pass": 1,
+        "fail": 2,
+        "samples": 3
+      }
+    },
+    "noSecretsOrInfrastructureIdentifiersIncluded": true
+  },
+  "catalogueDiagnostic": {
+    "sourceSHA256": "33f733f5298e4de1bdda72ae24cdbb14b4164a79b65f014b1aaa77a3288e6351",
+    "sanitizedExactExcerpt": "failed to copy: failed to do request: Put \"[URL REDACTED]\": dialing ghcr.io:443 container via direct connection because Docker Desktop has no HTTPS proxy: connecting to ghcr.io:443: dial tcp: lookup ghcr.io: no such host",
+    "source": "Prior sanitized Docker push diagnostics; no new publication attempt"
+  }
+}

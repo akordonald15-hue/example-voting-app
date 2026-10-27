@@ -14,6 +14,9 @@ spec:
       labels:
         service: dispatch
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       containers:
       - name: dispatch

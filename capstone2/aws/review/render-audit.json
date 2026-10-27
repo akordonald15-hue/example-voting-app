@@ -1,0 +1,1132 @@
+{
+  "scope": "OFFLINE ONLY; image placeholders are STRUCTURAL FIXTURES and are not deliverable images",
+  "chartSHA256": "af35d3e93750ce46d90cbb6537483c8fa914f19fbffa19fbabcb2825181a0f1a",
+  "structuralResult": "PASS",
+  "errors": [],
+  "admissionHooksTestOnly": false,
+  "deploymentDecision": "NO-GO",
+  "blockers": [
+    "Custom image delivery incomplete; inspect Phase2B receipts. Scoped Kubernetes pull credentials unprovisioned",
+    "Grafana credential not provisioned/verified",
+    "Live CRD/RBAC collision and storage-class checks pending",
+    "Actual operator-generated Pod specs/reloader defaults require live verification",
+    "Slack disabled; no webhook or delivery evidence"
+  ],
+  "workloads": [
+    {
+      "kind": "Deployment",
+      "name": "cart",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "cart",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "catalogue",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "catalogue",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "dispatch",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "dispatch",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "mongodb",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "mongodb",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "100Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "mysql",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "mysql",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "1024Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "700Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "payment",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "payment",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "rabbitmq",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "rabbitmq",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "256Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "ratings",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "ratings",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "shipping",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "shipping",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "1000Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "500Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "user",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "user",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "web",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "web",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "StatefulSet",
+      "name": "redis",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "redis",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "200m",
+              "memory": "100Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "50Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Job",
+      "name": "robot-shop-loadgen",
+      "namespace": "robot-shop",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "loadgen",
+          "init": false,
+          "resources": {
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            },
+            "limits": {
+              "cpu": "200m",
+              "memory": "256Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "monitoring-grafana",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "grafana-sc-dashboard",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          }
+        },
+        {
+          "name": "grafana-sc-datasources",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          }
+        },
+        {
+          "name": "grafana",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "256Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "capstone2-monitoring-operator",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "kube-prometheus-stack",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "256Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Alertmanager",
+      "name": "capstone2-monitoring-alertmanager",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "operator CR; reloader budget added separately",
+      "containers": [
+        {
+          "name": "alertmanager",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Prometheus",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "operator CR; reloader budget added separately",
+      "containers": [
+        {
+          "name": "prometheus",
+          "init": false,
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "256Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "DaemonSet",
+      "name": "fluent-bit",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "fluent-bit",
+          "init": false,
+          "resources": {
+            "requests": {
+              "cpu": "50m",
+              "memory": "32Mi"
+            },
+            "limits": {
+              "cpu": "200m",
+              "memory": "96Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "blackbox",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "blackbox",
+          "init": false,
+          "resources": {
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            },
+            "limits": {
+              "cpu": "500m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "jaeger",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "jaeger",
+          "init": false,
+          "resources": {
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            },
+            "limits": {
+              "cpu": "500m",
+              "memory": "256Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "loki",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "loki",
+          "init": false,
+          "resources": {
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            },
+            "limits": {
+              "cpu": "500m",
+              "memory": "512Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "otel",
+      "namespace": "observability",
+      "hook": null,
+      "placement": true,
+      "mode": "rendered Pod template",
+      "containers": [
+        {
+          "name": "otel",
+          "init": false,
+          "resources": {
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            },
+            "limits": {
+              "cpu": "500m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "OperatorGeneratedSidecar",
+      "name": "prometheus-config-reloader",
+      "placement": "inherits parent CR",
+      "containers": [
+        {
+          "resources": {
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            },
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": "verify actual operator-generated Pods before traffic"
+    },
+    {
+      "kind": "OperatorGeneratedSidecar",
+      "name": "alertmanager-config-reloader",
+      "placement": "inherits parent CR",
+      "containers": [
+        {
+          "resources": {
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            },
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": "verify actual operator-generated Pods before traffic"
+    }
+  ],
+  "resourceTotalsIncludingEnabledLoadAndReloaderAllowance": {
+    "cpuRequestMillicores": 1765.0,
+    "memoryRequestMi": 2916.0,
+    "cpuLimitMillicores": 6950.0,
+    "memoryLimitMi": 6320.0
+  },
+  "services": [
+    {
+      "name": "cart",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "catalogue",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "dispatch",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "mongodb",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "mysql",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "payment",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "rabbitmq",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "ratings",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "redis",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "shipping",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "user",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "web",
+      "namespace": "robot-shop",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "monitoring-grafana",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "capstone2-monitoring-alertmanager",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "capstone2-monitoring-operator",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "blackbox",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "jaeger",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "loki",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    },
+    {
+      "name": "otel",
+      "namespace": "observability",
+      "type": "ClusterIP"
+    }
+  ],
+  "objects": [
+    {
+      "release": "robot-shop",
+      "kind": "NetworkPolicy",
+      "name": "robot-shop-private",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "cart",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "catalogue",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "dispatch",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "mongodb",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "mysql",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "payment",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "rabbitmq",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "ratings",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "redis",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "shipping",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "user",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Service",
+      "name": "web",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "cart",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "catalogue",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "dispatch",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "mongodb",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "mysql",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "payment",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "rabbitmq",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "ratings",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "shipping",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "user",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Deployment",
+      "name": "web",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "StatefulSet",
+      "name": "redis",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "robot-shop",
+      "kind": "Job",
+      "name": "robot-shop-loadgen",
+      "namespace": "robot-shop"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceAccount",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceAccount",
+      "name": "capstone2-monitoring-alertmanager",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceAccount",
+      "name": "capstone2-monitoring-operator",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceAccount",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Secret",
+      "name": "alertmanager-capstone2-monitoring-alertmanager",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Secret",
+      "name": "capstone2-monitoring-prometheus-scrape-confg",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Secret",
+      "name": "capstone2-monitoring-prometheus-token",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ConfigMap",
+      "name": "monitoring-grafana-config-dashboards",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ConfigMap",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ConfigMap",
+      "name": "capstone2-monitoring-grafana-datasource",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ClusterRole",
+      "name": "capstone2-monitoring-operator",
+      "namespace": null
+    },
+    {
+      "release": "monitoring",
+      "kind": "ClusterRole",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": null
+    },
+    {
+      "release": "monitoring",
+      "kind": "ClusterRoleBinding",
+      "name": "capstone2-monitoring-operator",
+      "namespace": null
+    },
+    {
+      "release": "monitoring",
+      "kind": "ClusterRoleBinding",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": null
+    },
+    {
+      "release": "monitoring",
+      "kind": "Role",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "RoleBinding",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Service",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Service",
+      "name": "capstone2-monitoring-alertmanager",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Service",
+      "name": "capstone2-monitoring-operator",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Service",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Deployment",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Deployment",
+      "name": "capstone2-monitoring-operator",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Alertmanager",
+      "name": "capstone2-monitoring-alertmanager",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "Prometheus",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceMonitor",
+      "name": "monitoring-grafana",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceMonitor",
+      "name": "capstone2-monitoring-alertmanager",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceMonitor",
+      "name": "capstone2-monitoring-operator",
+      "namespace": "observability"
+    },
+    {
+      "release": "monitoring",
+      "kind": "ServiceMonitor",
+      "name": "capstone2-monitoring-prometheus",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "NetworkPolicy",
+      "name": "private-observability",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "ConfigMap",
+      "name": "observability-config",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "ConfigMap",
+      "name": "grafana-robot-shop-dashboard",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "ConfigMap",
+      "name": "fluent-bit-config",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Service",
+      "name": "blackbox",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Service",
+      "name": "jaeger",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Service",
+      "name": "loki",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Service",
+      "name": "otel",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "DaemonSet",
+      "name": "fluent-bit",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Deployment",
+      "name": "blackbox",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Deployment",
+      "name": "jaeger",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Deployment",
+      "name": "loki",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "Deployment",
+      "name": "otel",
+      "namespace": "observability"
+    },
+    {
+      "release": "capstone-observability",
+      "kind": "PrometheusRule",
+      "name": "robot-shop-slo",
+      "namespace": "observability"
+    }
+  ],
+  "negativePlacementTests": "wrong node and missing toleration rejected"
+}

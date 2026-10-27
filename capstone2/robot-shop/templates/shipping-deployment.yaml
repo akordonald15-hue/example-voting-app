@@ -14,6 +14,9 @@ spec:
       labels:
         service: shipping
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       containers:
       - name: shipping
@@ -27,7 +30,7 @@ spec:
         # it's Java it needs lots of memory
         resources:
           limits:
-            cpu: {{ ternary "500m" "200m" (.Values.localDemo | default false) }}
+            cpu: {{ .Values.shipping.cpuLimit | default (ternary "500m" "200m" (.Values.localDemo | default false)) }}
             memory: 1000Mi
           requests:
             cpu: 100m

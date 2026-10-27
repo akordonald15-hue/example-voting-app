@@ -1,0 +1,113 @@
+[
+  {
+    "dockerTags": [
+      "capstone2-web:local"
+    ],
+    "configDigest": "sha256:756160d701ee34f51f43a6b84f20d5586f18e048f9b4d64abbf7cddec53a8ee6",
+    "os": "linux",
+    "architecture": "amd64",
+    "diffIDs": [
+      "sha256:75c137aedfb2760f88629236cb7b797630aed0c3d91d626d1d1bb694878fc2ba",
+      "sha256:1e7c31449d3b67bab8f9bdb22fdd16ea983e167875bf91f9655583354477d417",
+      "sha256:a81b85a0b02f451fac1872d6f0abe015d010d800b457270409335029c55c474d",
+      "sha256:bda40d8c442bd04d0ebe75ffa571b1cefc1845146a081ffd7f642ecb24fefe1d",
+      "sha256:8c00b8f8a56dc3a2d9a383484b95263f4b046a30e16e8b7f24db9b7db51e3a57",
+      "sha256:d29ddc97b520304b2b1dd7de27d90850ea10848cf463885779303aa6a39c9b3e",
+      "sha256:b808796d5f20c30ea7389c40f45494132e909cfff680dc3e2a960987967d496a"
+    ],
+    "testedKindConfigIDs": [
+      "sha256:756160d701ee34f51f43a6b84f20d5586f18e048f9b4d64abbf7cddec53a8ee6"
+    ],
+    "exactConfigMatch": true
+  },
+  {
+    "dockerTags": [
+      "capstone2-cart:local"
+    ],
+    "configDigest": "sha256:5521eceff5612d4efad5b2b9901d46dbc4359c616bca539f5a0f889dfffc5deb",
+    "os": "linux",
+    "architecture": "amd64",
+    "diffIDs": [
+      "sha256:75c137aedfb2760f88629236cb7b797630aed0c3d91d626d1d1bb694878fc2ba",
+      "sha256:1e7c31449d3b67bab8f9bdb22fdd16ea983e167875bf91f9655583354477d417",
+      "sha256:a81b85a0b02f451fac1872d6f0abe015d010d800b457270409335029c55c474d",
+      "sha256:bda40d8c442bd04d0ebe75ffa571b1cefc1845146a081ffd7f642ecb24fefe1d",
+      "sha256:8c00b8f8a56dc3a2d9a383484b95263f4b046a30e16e8b7f24db9b7db51e3a57",
+      "sha256:573ae260bb513a3615d8048c1a6107f6d8c87ef0e01a09fee6579f1ca24a812f",
+      "sha256:e8f3c3df452bf86b489e50f24091a584aff75061a444c98eddffba5cbec0b552",
+      "sha256:3dafd949cf352461eae7c6c70d922f3bf47c648896302b949f0387a08843bb20"
+    ],
+    "testedKindConfigIDs": [
+      "sha256:5521eceff5612d4efad5b2b9901d46dbc4359c616bca539f5a0f889dfffc5deb"
+    ],
+    "exactConfigMatch": true
+  },
+  {
+    "dockerTags": [
+      "capstone2-catalogue:local"
+    ],
+    "configDigest": "sha256:6fd2ed264be5f1414b5f43653c0027a78d74e17b0f20689dc967560408bf61ab",
+    "os": "linux",
+    "architecture": "amd64",
+    "diffIDs": [
+      "sha256:75c137aedfb2760f88629236cb7b797630aed0c3d91d626d1d1bb694878fc2ba",
+      "sha256:1e7c31449d3b67bab8f9bdb22fdd16ea983e167875bf91f9655583354477d417",
+      "sha256:a81b85a0b02f451fac1872d6f0abe015d010d800b457270409335029c55c474d",
+      "sha256:bda40d8c442bd04d0ebe75ffa571b1cefc1845146a081ffd7f642ecb24fefe1d",
+      "sha256:8c00b8f8a56dc3a2d9a383484b95263f4b046a30e16e8b7f24db9b7db51e3a57",
+      "sha256:ad17607b80ff4b6c706cd73205d0dffd0084ae9bcd9313329350779cf375c9ce",
+      "sha256:009d43b0ca33808faf832471e8c027a532d7edb482b41ac0e238daee9edc33f2",
+      "sha256:3dafd949cf352461eae7c6c70d922f3bf47c648896302b949f0387a08843bb20"
+    ],
+    "testedKindConfigIDs": [
+      "sha256:6fd2ed264be5f1414b5f43653c0027a78d74e17b0f20689dc967560408bf61ab"
+    ],
+    "exactConfigMatch": true
+  },
+  {
+    "dockerTags": [
+      "capstone2-payment:local"
+    ],
+    "configDigest": "sha256:42db7a3d25e9b1520878b7401ebe26daacfefdd8d453c23c7ec15c580981ee29",
+    "os": "linux",
+    "architecture": "amd64",
+    "diffIDs": [
+      "sha256:a6dc765193a52cbaede3c93a9ff48b9540948dd0774bbe7031fcb5847606f9ac",
+      "sha256:7ca599ccfc97fa428fcf941eda7c2d643f066feb947020dcdbbf913cec34d5dc",
+      "sha256:b54011271bdbf69ae643cb5a4af6a5bc2f834ae8bc0833b736b52bbd2396e99f",
+      "sha256:c321a426ca693e386f4df5f198d7f32c2da49e29f53ff77d695ceb02dfb0a421",
+      "sha256:d103896040fd2b4314d16134a26666b1366099363c88d76a93ba5b8fbe8ca2a4",
+      "sha256:4c43102b3843238ddf54a8d07290165f0f91eb5932defd0e73e481168c545a43",
+      "sha256:b1199ba695b319bd4b961fea7f1884602a29e9e8ddd9dd44f14d0f951528a517",
+      "sha256:e0b65aaeea65808c1768e45b6343bf9771e01ed0972bcd60f7df8b5baef4822a"
+    ],
+    "testedKindConfigIDs": [
+      "sha256:42db7a3d25e9b1520878b7401ebe26daacfefdd8d453c23c7ec15c580981ee29"
+    ],
+    "exactConfigMatch": true
+  },
+  {
+    "dockerTags": [
+      "capstone2-loadgen:browser"
+    ],
+    "configDigest": "sha256:ae8ab49817dd05b7c49a18569689d71124644c2bd11a28a16224106575a26239",
+    "os": "linux",
+    "architecture": "amd64",
+    "diffIDs": [
+      "sha256:a6dc765193a52cbaede3c93a9ff48b9540948dd0774bbe7031fcb5847606f9ac",
+      "sha256:7ca599ccfc97fa428fcf941eda7c2d643f066feb947020dcdbbf913cec34d5dc",
+      "sha256:b54011271bdbf69ae643cb5a4af6a5bc2f834ae8bc0833b736b52bbd2396e99f",
+      "sha256:c321a426ca693e386f4df5f198d7f32c2da49e29f53ff77d695ceb02dfb0a421",
+      "sha256:7ae6a6f75668604f272265e9692664350dad95fed8d4e88ff49037c2679345d5",
+      "sha256:5e7f916a7ebbe981decc7069a2f6b4a9d5b837ba4a27433494aa5fcc8337ccc3",
+      "sha256:b91bf012fea44fa0dc5dc974d5f804125f0c8b1d13177624b0da41dc41b954f1",
+      "sha256:ed5d50980feb39326fefe8682906f568fe9c1d29d04d2e4d1105398ed6ec158c",
+      "sha256:4caab7b58959d93d5502a1a414e8749823fd6294767207784304b011f9f73447",
+      "sha256:4fc08dc0f5e02ede3a10de10bea7311275f99c12deef1aa98c835a35b5899eec"
+    ],
+    "testedKindConfigIDs": [
+      "sha256:ae8ab49817dd05b7c49a18569689d71124644c2bd11a28a16224106575a26239"
+    ],
+    "exactConfigMatch": true
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "component": "web",
+    "reference": "ghcr.io/akordonald15-hue/capstone2-web@sha256:9ded3c31ca93f19ecdc3aedc555ac73bf8347542df04e47460605963efeecf3d",
+    "manifestDigest": "sha256:9ded3c31ca93f19ecdc3aedc555ac73bf8347542df04e47460605963efeecf3d",
+    "configDigest": "sha256:756160d701ee34f51f43a6b84f20d5586f18e048f9b4d64abbf7cddec53a8ee6",
+    "registryVerified": true,
+    "amd64Verified": true,
+    "pullOnlyRegistryScopeVerified": true,
+    "AWSImagePull": "NOT TESTED"
+  },
+  {
+    "component": "cart",
+    "reference": "ghcr.io/akordonald15-hue/capstone2-cart@sha256:b04e18ce689f1b3b319bedb8fdcd2bb9904d0ae8720515161d69a3e2e21c8795",
+    "manifestDigest": "sha256:b04e18ce689f1b3b319bedb8fdcd2bb9904d0ae8720515161d69a3e2e21c8795",
+    "configDigest": "sha256:5521eceff5612d4efad5b2b9901d46dbc4359c616bca539f5a0f889dfffc5deb",
+    "registryVerified": true,
+    "amd64Verified": true,
+    "pullOnlyRegistryScopeVerified": true,
+    "AWSImagePull": "NOT TESTED",
+    "receipt": "cart-investigation/single-retry-attempt.json"
+  }
+]

@@ -1,3 +1,5 @@
+> Current closeout: [submission evidence and scope](../submission/README.md). The notes below are historical; they do not override the current matrix or authorize execution.
+
 # Capstone 1 submission readiness
 
 Updated October 26, 2026. Submission deadline: **October 27, 2026, 12:00 WAT (11:00 UTC)**.

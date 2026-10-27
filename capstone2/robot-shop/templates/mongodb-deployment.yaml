@@ -14,6 +14,9 @@ spec:
       labels:
         service: mongodb
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       containers:
       - name: mongodb

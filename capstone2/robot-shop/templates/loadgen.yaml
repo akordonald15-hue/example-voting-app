@@ -8,7 +8,16 @@ spec:
   template:
     metadata: {labels: {service: loadgen}}
     spec:
+      {{- with .Values.loadgen.nodeSelector }}
+      nodeSelector: {{ toJson . }}
+      {{- end }}
+      {{- with .Values.loadgen.tolerations }}
+      tolerations: {{ toJson . }}
+      {{- end }}
       restartPolicy: Never
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       securityContext: {runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000, seccompProfile: {type: RuntimeDefault}}
       containers:
@@ -19,7 +28,8 @@ spec:
           env:
             - {name: HOST, value: 'http://web:8080'}
             - {name: NUM_CLIENTS, value: '1'}
-            - {name: RUN_TIME, value: 5m}
+            - {name: RUN_TIME, value: {{ .Values.loadgen.runTime | default "5m" | quote }}}
+            - {name: SHIPPING_PROFILE, value: {{ .Values.loadgen.shippingProfile | default "upstream" | quote }}}
             - {name: ERROR, value: '0'}
             - {name: SILENT, value: '0'}
           resources:

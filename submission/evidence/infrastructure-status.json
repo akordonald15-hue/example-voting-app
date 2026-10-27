@@ -1,0 +1,11 @@
+{
+  "evidenceType": "Prior recorded apply plus owner-confirmed live checkpoints; no live calls during packaging",
+  "controlPlane": "Existing AWS K3s server retained",
+  "worker": "m7i.xlarge; provisioned and joined,owner-confirmed Ready",
+  "workerApply": "Recorded17additions,0changes,0deletions",
+  "workerJoin": "Owner-confirmed version/TLS/DNS/kubelet/protection checks passed; raw join output not present in public bundle",
+  "isolation": "Dedicated workload label and NoSchedule taint; Robot Shop AWS deployment not performed",
+  "production": "Owner-confirmed Helm revision2deployed,fiveReady/zeroRestarts at accepted checkpoint,PostgreSQL PVC preserved",
+  "missingEvidence": "Sanitized current live Helm/node/PVC screenshots/status receipts not independently captured in this closeout",
+  "destroyRecreate": "NOT DEMONSTRATED"
+}

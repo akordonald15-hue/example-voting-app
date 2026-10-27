@@ -8,6 +8,15 @@ spec:
   template:
     metadata: {labels: {app: fluent-bit, capstone2-component: auxiliary}}
     spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector: {{ toJson . }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations: {{ toJson . }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       securityContext: {seccompProfile: {type: RuntimeDefault}}
       containers:

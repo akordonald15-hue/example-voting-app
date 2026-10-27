@@ -15,6 +15,9 @@ spec:
       labels:
         service: redis
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toJson . }}
+      {{- end }}
       automountServiceAccountToken: false
       containers:
       - name: redis

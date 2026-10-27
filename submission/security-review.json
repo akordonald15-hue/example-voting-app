@@ -1,0 +1,16 @@
+{
+  "exitCode": 0,
+  "status": "PASS",
+  "tool": "cached gitleaks8.30.1; offline Docker scanner; bounded192MiB/0.5CPU; no pull/network",
+  "findings": [],
+  "snapshotFiles": 385,
+  "privateFilenameFindings": [],
+  "scope": "Current tracked working-tree files plus explicit selected new files; historical Git commits and external/private artifacts not scanned",
+  "credentialsOrNetworkChanges": false,
+  "noStagingCommitOrPush": true,
+  "maximumFileSizeScannedMiB": 5,
+  "postScanDeltaReview": "Only prose formatting,sanitized DNS-error excerpt and generated audit metadata changed after snapshot; targeted secret/cloud-identifier pattern review passed",
+  "selectedFileCount": 50,
+  "privateCloudIdentifierPatternFindings": [],
+  "limitations": "No historical Git scan,external artifact scan or guarantee that a scanner detects every secret; exact staging review required"
+}

@@ -1,0 +1,390 @@
+[
+  {
+    "kind": "ClusterRole",
+    "name": "capstone2-monitoring-operator",
+    "release": "monitoring",
+    "rules": [
+      {
+        "apiGroups": [
+          "monitoring.coreos.com"
+        ],
+        "resources": [
+          "alertmanagers",
+          "prometheusagents",
+          "prometheuses",
+          "thanosrulers"
+        ],
+        "verbs": [
+          "patch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "monitoring.coreos.com"
+        ],
+        "resources": [
+          "alertmanagers/status",
+          "podmonitors/status",
+          "probes/status",
+          "prometheuses/status",
+          "prometheusagents/status",
+          "prometheusrules/status",
+          "scrapeconfigs/status",
+          "servicemonitors/status",
+          "thanosrulers/status"
+        ],
+        "verbs": [
+          "create",
+          "update",
+          "patch",
+          "delete"
+        ]
+      },
+      {
+        "apiGroups": [
+          "monitoring.coreos.com"
+        ],
+        "resources": [
+          "alertmanagers/finalizers",
+          "prometheusagents/finalizers",
+          "prometheuses/finalizers",
+          "thanosrulers/finalizers"
+        ],
+        "verbs": [
+          "update"
+        ]
+      },
+      {
+        "apiGroups": [
+          "monitoring.coreos.com"
+        ],
+        "resources": [
+          "alertmanagers",
+          "alertmanagerconfigs",
+          "podmonitors",
+          "probes",
+          "prometheusagents",
+          "prometheuses",
+          "prometheusrules",
+          "servicemonitors",
+          "scrapeconfigs",
+          "thanosrulers"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "apps"
+        ],
+        "resources": [
+          "statefulsets"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch",
+          "create",
+          "update",
+          "patch",
+          "delete"
+        ]
+      },
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "configmaps",
+          "secrets"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch",
+          "create",
+          "update",
+          "delete"
+        ]
+      },
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "pods"
+        ],
+        "verbs": [
+          "list",
+          "delete"
+        ]
+      },
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "services",
+          "services/finalizers",
+          "endpoints"
+        ],
+        "verbs": [
+          "get",
+          "create",
+          "update",
+          "delete"
+        ]
+      },
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "nodes"
+        ],
+        "verbs": [
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "namespaces"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "",
+          "events.k8s.io"
+        ],
+        "resources": [
+          "events"
+        ],
+        "verbs": [
+          "patch",
+          "create"
+        ]
+      },
+      {
+        "apiGroups": [
+          "networking.k8s.io"
+        ],
+        "resources": [
+          "ingresses"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "storage.k8s.io"
+        ],
+        "resources": [
+          "storageclasses"
+        ],
+        "verbs": [
+          "get"
+        ]
+      },
+      {
+        "apiGroups": [
+          "discovery.k8s.io"
+        ],
+        "resources": [
+          "endpointslices"
+        ],
+        "verbs": [
+          "get",
+          "create",
+          "list",
+          "watch",
+          "update",
+          "delete"
+        ]
+      }
+    ],
+    "roleRef": null,
+    "subjects": []
+  },
+  {
+    "kind": "ClusterRole",
+    "name": "capstone2-monitoring-prometheus",
+    "release": "monitoring",
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "nodes",
+          "nodes/metrics",
+          "services",
+          "endpoints",
+          "pods"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "discovery.k8s.io"
+        ],
+        "resources": [
+          "endpointslices"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "networking.k8s.io"
+        ],
+        "resources": [
+          "ingresses"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "nonResourceURLs": [
+          "/metrics",
+          "/metrics/cadvisor"
+        ],
+        "verbs": [
+          "get"
+        ]
+      }
+    ],
+    "roleRef": null,
+    "subjects": []
+  },
+  {
+    "kind": "ClusterRoleBinding",
+    "name": "capstone2-monitoring-operator",
+    "release": "monitoring",
+    "rules": [],
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "capstone2-monitoring-operator"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "capstone2-monitoring-operator",
+        "namespace": "observability"
+      }
+    ]
+  },
+  {
+    "kind": "ClusterRoleBinding",
+    "name": "capstone2-monitoring-prometheus",
+    "release": "monitoring",
+    "rules": [],
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "capstone2-monitoring-prometheus"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "capstone2-monitoring-prometheus",
+        "namespace": "observability"
+      }
+    ]
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "alertmanagerconfigs.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-alertmanagerconfigs.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "alertmanagers.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-alertmanagers.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "podmonitors.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-podmonitors.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "probes.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-probes.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "prometheusagents.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-prometheusagents.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "prometheuses.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-prometheuses.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "prometheusrules.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-prometheusrules.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "scrapeconfigs.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-scrapeconfigs.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "servicemonitors.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-servicemonitors.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  },
+  {
+    "kind": "CustomResourceDefinition",
+    "name": "thanosrulers.monitoring.coreos.com",
+    "release": "monitoring",
+    "source": "kube-prometheus-stack/charts/crds/crds/crd-thanosrulers.yaml",
+    "collisionStatus": "LIVE OWNERSHIP/SCHEMA UNVERIFIED"
+  }
+]

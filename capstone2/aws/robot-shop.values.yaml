@@ -1,0 +1,71 @@
+localDemo: false
+nodeport: false
+ocCreateRoute: false
+image:
+  pullPolicy: IfNotPresent
+images:
+  web: ghcr.io/akordonald15-hue/capstone2-web@sha256:9ded3c31ca93f19ecdc3aedc555ac73bf8347542df04e47460605963efeecf3d
+  catalogue: ''
+  cart: ghcr.io/akordonald15-hue/capstone2-cart@sha256:b04e18ce689f1b3b319bedb8fdcd2bb9904d0ae8720515161d69a3e2e21c8795
+  payment: ''
+  user: docker.io/robotshop/rs-user@sha256:ea509182c180d20340a9427d8320f35085effdb4ed77b15275022d17bdd1fcf7
+  shipping: docker.io/robotshop/rs-shipping@sha256:89753ab489193286402c9486379da63c18a21d697b4fbd41246b68aacabfc6d3
+  ratings: docker.io/robotshop/rs-ratings@sha256:4899c686c249464783663342620425dc8c75a5d59ca55c247cf6aec62a5fff1a
+  dispatch: docker.io/robotshop/rs-dispatch@sha256:de81f1d07b021f24c1cc66fef6aa27f9a5456f08b0c081dfb4cc71027ff67ead
+  mongodb: docker.io/robotshop/rs-mongodb@sha256:119b545823cdce33a1d6cee87fdfed1cef82e680824ad0b49603be4aeb4e821e
+  mysql: docker.io/robotshop/rs-mysql-db@sha256:2355f9700d771f4326169d7d370ad1824d2d410876036f77342d9663d80f893b
+  rabbitmq: docker.io/library/rabbitmq@sha256:606d8c0d6b3c18d1da9afc53bc7cdb2a8d5486df91b5a9830e9e07626c9ae281
+  redis: docker.io/library/redis@sha256:63d5174750e285bc3069c4519c53c8b6de6ebe70715140a6c9d21d6f04b77319
+  loadgen: ''
+loadgen:
+  enabled: false
+  nodeSelector: &id001
+    kubernetes.io/hostname: capstone2-worker
+    capstone-workload: robot-shop
+  tolerations: &id002
+  - key: capstone-workload
+    operator: Equal
+    value: robot-shop
+    effect: NoSchedule
+  runTime: 3m
+  shippingProfile: browser
+web:
+  nodeSelector: *id001
+  tolerations: *id002
+catalogue:
+  nodeSelector: *id001
+  tolerations: *id002
+cart:
+  nodeSelector: *id001
+  tolerations: *id002
+  cpuLimit: 500m
+payment:
+  nodeSelector: *id001
+  tolerations: *id002
+  gateway: http://payment:8080/health
+user:
+  nodeSelector: *id001
+  tolerations: *id002
+shipping:
+  nodeSelector: *id001
+  tolerations: *id002
+  cpuLimit: 500m
+ratings:
+  nodeSelector: *id001
+  tolerations: *id002
+dispatch:
+  nodeSelector: *id001
+  tolerations: *id002
+mongodb:
+  nodeSelector: *id001
+  tolerations: *id002
+mysql:
+  nodeSelector: *id001
+  tolerations: *id002
+rabbitmq:
+  nodeSelector: *id001
+  tolerations: *id002
+redis:
+  nodeSelector: *id001
+  tolerations: *id002
+  storageClassName: local-path
